@@ -5,6 +5,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import styles from './App.module.css';
 import * as characterActions from './redux-toolkit/actions/character-actions';
 import * as userActions from './redux-toolkit/actions/user-actions';
+import * as pageActions from './redux-toolkit/actions/page-actions';
 import Spinner from './components/spinner/spinner';
 
 import Auth from './hoc/auth/auth';

@@ -7,27 +7,27 @@ import * as characterActions from '../../redux-toolkit/actions/character-actions
 const TableHeaderElement = ({ item }) => {
    const dispatch = useDispatch();
    const sortedState = useSelector((state) => state.characters.sorted);
-   const filteredState = useSelector((state) => state.characters.filtered);
+   const queryState = useSelector((state) => state.characters.query);
 
    const handleClick = () => {
       item.canSort && dispatch(characterActions.sortCharacters(item.id));
    };
 
-   const handleFilterChange = (value) => {
-      dispatch(characterActions.updateFilterQuery(item.id, value));
+   const handleQueryChange = (value) => {
+      dispatch(characterActions.updateQuery(item.id, value));
    };
 
-   const filterField = !item?.filterOptions ? (
+   const queryField = !item?.filterOptions ? (
       <input
          type="text"
-         value={filteredState[item.id]}
-         onChange={(e) => handleFilterChange(e.target.value)}
+         value={queryState[item.id]}
+         onChange={(e) => handleQueryChange(e.target.value)}
       ></input>
    ) : (
       <select
          name={item.header}
-         value={filteredState[item.id]}
-         onChange={(e) => handleFilterChange(e.target.value)}
+         value={queryState[item.id]}
+         onChange={(e) => handleQueryChange(e.target.value)}
       >
          {item.filterOptions.map((option) => (
             <option
@@ -48,7 +48,7 @@ const TableHeaderElement = ({ item }) => {
             )}
             <span onClick={handleClick}>{item.header}</span>
          </div>
-         <div>{item.canFilter && filterField}</div>
+         <div>{item.canFilter && queryField}</div>
       </div>
    );
 };

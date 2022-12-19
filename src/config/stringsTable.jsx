@@ -1,29 +1,13 @@
-// export const table = {
-//    id: 'Id.',
-//    image: 'Image',
-//    name: 'Name',
-//    status: 'Status',
-//    species: 'Species',
-//    type: 'Type',
-//    gender: 'Gender',
-// };
-
-// export const filterBy = {
-//    status: {
-//       alive: 'Alive',
-//       dead: 'Dead',
-//       unknown: 'unknown',
-//    },
-//    gender: {
-//       male: 'Male',
-//       female: 'Female',
-//       genderless: 'Genderless',
-//       unknown: 'unknown',
-//    },
-// };
+import { queryCharacterBy } from './stringsURL';
 
 export const table = [
-   { id: 'id', header: 'Id.', canSort: true, canFilter: true, filterQuery: '' },
+   {
+      id: queryCharacterBy.id,
+      header: 'Id.',
+      canSort: true,
+      canFilter: true,
+      filterQuery: '',
+   },
    {
       id: 'image',
       header: 'Image',
@@ -32,14 +16,14 @@ export const table = [
       filterQuery: '',
    },
    {
-      id: 'name',
+      id: queryCharacterBy.name,
       header: 'Name',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: 'status',
+      id: queryCharacterBy.status,
       header: 'Status',
       canSort: true,
       canFilter: true,
@@ -47,21 +31,21 @@ export const table = [
       filterOptions: ['', 'Alive', 'Dead', 'unknown'],
    },
    {
-      id: 'species',
+      id: queryCharacterBy.species,
       header: 'Species',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: 'type',
+      id: queryCharacterBy.type,
       header: 'Type',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: 'gender',
+      id: queryCharacterBy.gender,
       header: 'Gender',
       canSort: true,
       canFilter: true,

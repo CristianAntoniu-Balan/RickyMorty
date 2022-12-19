@@ -8,26 +8,61 @@ const getTotalOfCharacterPages = fetch(url.baseURL + url.get.characters)
       throw new Error(error.fetchAllCharacters);
    });
 
-const getCharactersForPageNo = async (page) => {
+export async function getCharactersForQueryAndPageNo(queryOptions, page) {
    let chars = [];
+   const query = queryBuilder(queryOptions, page);
    await fetch(
-      url.baseURL + '/' + url.get.characters + '?' + url.queryPage + page
+      query
+      // url.baseURL + '/' + url.get.characters + '?' + url.queryPage + page
    )
       .then((res) => res.json())
       .then((data) => {
-         chars = [...data.results];
+         chars = [...data.results].filter((result) => {
+            if (queryOptions[url.queryCharacterBy.id] !== '') {
+               // TODO filter the caca here
+               console.log(result.id.toString().test('1'));
+               console.log(
+                  'here',
+                  result.id.test(
+                     new RegExp(
+                        [queryOptions[url.queryCharacterBy.id]].toString(),
+                        'gi'
+                     )
+                  )
+               );
+               return result.id.test(
+                  new RegExp(
+                     [queryOptions[url.queryCharacterBy.id]].toString(),
+                     'gi'
+                  )
+               );
+               // return result.id === queryOptions[url.queryCharacterBy.id];
+            } else return true;
+         });
       })
       .catch(() => {
          throw new Error(error.fetchAllCharacters);
       });
    return chars;
+}
+
+const queryBuilder = (queryOptions, page) => {
+   let queryString = url.baseURL + url.get.characters + '/?';
+   for (const [key, value] of Object.entries(queryOptions)) {
+      key !== url.queryCharacterBy.id &&
+         value !== '' &&
+         (queryString += `${key}=${value}&`);
+   }
+   queryString += `page=${page}`;
+   return queryString;
+   // TODO
 };
 
 export async function getAllCharacters() {
    let characters = [];
    const pages = await getTotalOfCharacterPages;
    for (let i = 1; i <= pages; i++) {
-      const chars = await getCharactersForPageNo(i);
+      const chars = await getCharactersForQueryAndPageNo({}, i);
       characters = [...characters, ...chars];
    }
    return characters;
@@ -49,4 +84,4 @@ export async function getOneCharacterById(id) {
    return charData;
 }
 
-// TODO getCharacterByQuery(queryString)
+// TODO getCharactersByQuery(queryString)

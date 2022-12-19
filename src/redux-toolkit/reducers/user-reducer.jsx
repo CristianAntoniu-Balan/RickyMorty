@@ -5,7 +5,7 @@ const initialState = {
    isLoggedIn: false,
    loading: false,
    error: null,
-   redirect: { to: '/', trigger: false },
+   redirect: { to: '/', trigger: true },
 };
 
 const token_timeToExpireInMinutes = 1;
@@ -58,16 +58,17 @@ const userReducer = createReducer(initialState, (builder) => {
             state.loading = false;
          }
       )
-      .addCase(userActions.setRedirect, (state, action) => {
+      .addCase(userActions.setRedirect, (state = initialState, action) => {
          state.redirect.to = action.payload;
          state.redirect.trigger = true;
       })
       .addCase(userActions.cancelRedirect, (state = initialState, action) => {
          state.redirect.trigger = false;
       })
-      .addCase(userActions.logOut, (state, action) => {
+      .addCase(userActions.logOut, (state = initialState, action) => {
          state.isLoggedIn = false;
          state.redirect.to = '/';
+         state.redirect.trigger = true;
          sessionStorage.removeItem('logInData');
       })
       .addDefaultCase((state = initialState, action) => state);

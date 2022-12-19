@@ -3,7 +3,7 @@ import * as characterActions from '../actions/character-actions';
 import { table } from '../../config/stringsTable';
 
 const initialState = {
-   allCharacters: [],
+   queryCharacters: [],
    selectedCharacterData: {},
    loading: false,
    error: null,
@@ -11,14 +11,15 @@ const initialState = {
       by: 'id',
       type: 1,
    },
-   filtered: {},
+   queryInfo: {},
+   query: {},
    // {by: query}
 };
 
 const initFiltered = () => {
    table.forEach((el) => {
       el.canFilter &&
-         Object.assign(initialState.filtered, { [el.id]: el.filterQuery });
+         Object.assign(initialState.query, { [el.id]: el.filterQuery });
    });
 };
 
@@ -26,12 +27,9 @@ initFiltered();
 
 const charactersReducer = createReducer(initialState, (builder) => {
    builder
-      .addCase(
-         characterActions.updateFilterQuery,
-         (state = initialState, action) => {
-            state.filtered[action.payload.id] = action.payload.value;
-         }
-      )
+      .addCase(characterActions.updateQuery, (state = initialState, action) => {
+         state.query[action.payload.id] = action.payload.value;
+      })
       .addCase(
          characterActions.getAll.pending,
          (state = initialState, action) => {
@@ -42,7 +40,7 @@ const charactersReducer = createReducer(initialState, (builder) => {
       .addCase(
          characterActions.getAll.fulfilled,
          (state = initialState, action) => {
-            state.allCharacters = [...action.payload];
+            state.queryCharacters = [...action.payload];
             state.loading = false;
             state.error = null;
          }
@@ -72,6 +70,29 @@ const charactersReducer = createReducer(initialState, (builder) => {
       .addCase(
          characterActions.getOneById.rejected,
          (state = initialState, action) => {
+            state.loading = false;
+            state.error = action.payload;
+         }
+      )
+      .addCase(
+         characterActions.getByQueryAndPage.pending,
+         (state = initialState, action) => {
+            state.loading = true;
+            state.error = null;
+         }
+      )
+      .addCase(
+         characterActions.getByQueryAndPage.fulfilled,
+         (state = initialState, action) => {
+            state.queryCharacters = [...action.payload];
+            state.loading = false;
+            state.error = null;
+         }
+      )
+      .addCase(
+         characterActions.getByQueryAndPage.rejected,
+         (state = initialState, action) => {
+            state.queryCharacters = [];
             state.loading = false;
             state.error = action.payload;
          }
