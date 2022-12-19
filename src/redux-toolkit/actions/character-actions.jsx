@@ -1,5 +1,9 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllCharacters, getOneCharacterById } from '../../api/characters';
+import {
+   getAllCharacters,
+   getOneCharacterById,
+   getCharactersForQueryAndPageNo,
+} from '../../api/characters';
 
 export const initFilterState = createAction('initFilterState');
 
@@ -27,10 +31,23 @@ export const getOneById = createAsyncThunk(
    }
 );
 
+export const getByQueryAndPage = createAsyncThunk(
+   'getByQueryAndPage',
+   async (queryData, { rejectWithValue }) => {
+      const { query, page } = queryData;
+      try {
+         const res = await getCharactersForQueryAndPageNo(query, page);
+         return res;
+      } catch (err) {
+         return rejectWithValue(err.message);
+      }
+   }
+);
+
 export const sortCharacters = createAction('sortCharacters');
 
-export const updateFilterQuery = createAction(
-   'updateFilterQuery',
+export const updateQuery = createAction(
+   'updateQuery',
    function prepare(id, value) {
       return {
          payload: {

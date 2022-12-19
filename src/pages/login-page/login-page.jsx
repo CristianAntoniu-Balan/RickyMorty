@@ -13,6 +13,9 @@ const LoginPage = () => {
    const redirect = useSelector((state) => state.user.redirect);
    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
+   // TODO fix logOut on no redirect
+   // TODO is fixed... must check
+
    useEffect(() => {
       if (isLoggedIn) {
          if (redirect.trigger) {

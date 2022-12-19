@@ -7,10 +7,11 @@ export const get = {
 };
 
 export const queryCharacterBy = {
+   id: 'id',
    name: 'name',
    status: 'status',
    species: 'species',
-   tyoe: 'type',
+   type: 'type',
    gender: 'gender',
 };
 
@@ -26,3 +27,4 @@ export const queryEpisodeBy = {
 };
 
 export const queryPage = 'page=';
+export const pageItemsCount = 20;
