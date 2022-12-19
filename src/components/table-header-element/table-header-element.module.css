@@ -1,0 +1,9 @@
+.tableHeaderElement {
+   display: block;
+   max-width: 100%;
+   /* grid-template-rows: 1fr 1fr; */
+}
+
+.tableHeaderElement input {
+   width: 90%;
+}

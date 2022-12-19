@@ -1,0 +1,52 @@
+.characterTableLayout {
+   display: grid;
+   width: 80%;
+   height: 5em;
+   grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr 1.5fr;
+   border: 0.25em solid black;
+   border-radius: 1em;
+   /* border-top-width: 0.25em;
+   border-right-width: 0.25em;
+   border-bottom-width: 0;
+   border-left-width: 0.25em; */
+   border-style: solid;
+   border-color: black;
+   margin: 0.5em auto;
+   text-align: center;
+   align-content: center;
+}
+
+.characterTableLayout > * {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.characterTableLayout .imgContainer {
+   display: block;
+   max-width: 5em;
+   max-height: 5em;
+   margin: auto;
+}
+
+.characterTableLayout img {
+   align-items: center;
+   justify-content: center;
+   max-height: 70%;
+   max-width: 70%;
+}
+
+.characterTableLayout:hover {
+   background-color: lightblue;
+   /* box-shadow: 1em 1em 0.5em rgba(0, 0, 0, 0.2),
+      1em -1em 0.5em rgba(0, 0, 0, 0.2), -1em -1em 0.5em rgba(0, 0, 0, 0.2),
+      -1em 1em 0.5em rgba(0, 0, 0, 0.2); */
+}
+
+.headerRow {
+   font-weight: bold;
+}
+
+.headerRow:hover {
+   background-color: inherit;
+}

@@ -1,0 +1,16 @@
+.loginForm {
+   display: block;
+   border: 1px solid black;
+   width: max-content;
+   margin: auto;
+   padding: 1em;
+}
+
+.loginForm > * {
+   display: block;
+}
+
+.loginForm + div {
+   width: max-content;
+   margin: auto;
+}
