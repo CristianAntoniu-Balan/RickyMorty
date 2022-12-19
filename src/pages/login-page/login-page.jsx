@@ -15,14 +15,19 @@ const LoginPage = () => {
 
    useEffect(() => {
       if (isLoggedIn) {
-         dispatch(userActions.logOut());
+         if (redirect.trigger) {
+            navigate(redirect.to);
+         } else {
+            dispatch(userActions.logOut());
+         }
       }
-      //    if (redirect.trigger) {
-      //       console.log('here');
-      //       navigate(redirect.to);
-      //       dispatch(userActions.cancelRedirect());
-      //    }
-   }, [isLoggedIn]);
+
+      return () => {
+         if (isLoggedIn && redirect.trigger) {
+            return dispatch(userActions.cancelRedirect());
+         }
+      };
+   }, [isLoggedIn, redirect]);
 
    return (
       <React.Fragment>
