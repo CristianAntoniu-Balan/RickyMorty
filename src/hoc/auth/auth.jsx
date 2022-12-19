@@ -13,23 +13,18 @@ const Auth = ({ children }) => {
 
    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
-   let ret = <Spinner />;
-
-   if (isLoggedIn) {
-      dispatch(userActions.validateLogin());
-      ret = children;
-   }
-
    const origin = location?.pathname || '/';
 
    useEffect(() => {
       if (!isLoggedIn) {
          dispatch(userActions.setRedirect(origin));
          navigate('/login');
+      } else {
+         dispatch(userActions.validateLogin());
       }
    }, [isLoggedIn, origin]);
 
-   return ret;
+   return isLoggedIn ? children : <Spinner />;
 };
 
 export default Auth;
