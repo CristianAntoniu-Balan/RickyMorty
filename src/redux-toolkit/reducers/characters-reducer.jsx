@@ -25,8 +25,8 @@ const initFiltered = () => {
 };
 
 const resetQueryInfo = () => {
-   Object.keys(queryInfo).forEach((key) => {
-      Object.assign(initialState.queryInfo, { [key]: '' });
+   Object.entries(queryInfo).forEach(([key, value]) => {
+      Object.assign(initialState.queryInfo, { [key]: value });
    });
 };
 
@@ -56,6 +56,30 @@ const charactersReducer = createReducer(initialState, (builder) => {
       .addCase(
          characterActions.getAll.rejected,
          (state = initialState, action) => {
+            state.loading = false;
+            state.error = action.payload;
+         }
+      )
+      .addCase(
+         characterActions.getByQueryAndPageInterval.pending,
+         (state = initialState, action) => {
+            state.loading = true;
+            state.error = null;
+         }
+      )
+      .addCase(
+         characterActions.getByQueryAndPageInterval.fulfilled,
+         (state = initialState, action) => {
+            state.queryInfo = { ...action.payload.queryInfo };
+            state.queryCharacters = [...action.payload.chars];
+            state.loading = false;
+            state.error = null;
+         }
+      )
+      .addCase(
+         characterActions.getByQueryAndPageInterval.rejected,
+         (state = initialState, action) => {
+            state.queryCharacters = [];
             state.loading = false;
             state.error = action.payload;
          }

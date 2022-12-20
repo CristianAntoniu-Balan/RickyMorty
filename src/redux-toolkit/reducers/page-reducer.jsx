@@ -20,14 +20,23 @@ const pageReducer = createReducer(initialState, (builder) => {
       })
       .addCase(pageActions.last, (state = initialState, action) => {
          // TODO
-         state.currentPage = state.lastPage;
+         state.currentPage = Number(state.lastPage);
       })
       .addCase(pageActions.goToPageNumber, (state = initialState, action) => {
-         state.currentPage = action.payload;
+         state.currentPage = Number(action.payload);
       })
       .addCase(pageActions.displayPerPage, (state = initialState, action) => {
-         state.itemsPerPage = action.payload;
+         state.itemsPerPage = Number(action.payload);
       })
+      .addCase(
+         pageActions.setLastPageNumber,
+         (state = initialState, action) => {
+            state.lastPage = Number(action.payload);
+            if (state.currentPage > Number(action.payload)) {
+               state.currentPage = Number(action.payload);
+            }
+         }
+      )
       .addDefaultCase((state = initialState, action) => state);
 });
 

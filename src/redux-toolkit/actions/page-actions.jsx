@@ -13,3 +13,5 @@ export const last = createAction(`${pageButton.last.txt}`);
 export const goToPageNumber = createAction('goToPageNumber');
 
 export const displayPerPage = createAction('displayPerPage');
+
+export const setLastPageNumber = createAction('setLastPageNumber');

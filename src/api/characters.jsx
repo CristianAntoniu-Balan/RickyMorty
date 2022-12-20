@@ -41,6 +41,22 @@ const queryBuilder = (queryOptions, page) => {
    // TODO
 };
 
+export async function getCharactersForQueryAndPageInterval(
+   query,
+   startPage,
+   endPage
+) {
+   let chars = [];
+   let queryInfo = {};
+   // const pages = await getTotalOfCharacterPages;
+   for (let i = startPage; i <= endPage; i++) {
+      const res = await getCharactersForQueryAndPageNo(query, i);
+      queryInfo = { ...res.queryInfo };
+      chars = [...chars, ...res.chars];
+   }
+   return { queryInfo, chars };
+}
+
 export async function getAllCharacters() {
    let characters = [];
    const pages = await getTotalOfCharacterPages;

@@ -58,9 +58,9 @@ function App() {
                   <Route
                      path="/characters"
                      element={
-                        <Auth>
-                           <AllCharactersPage />
-                        </Auth>
+                        // <Auth>
+                        <AllCharactersPage />
+                        // </Auth>
                      }
                   />
                   <Route
