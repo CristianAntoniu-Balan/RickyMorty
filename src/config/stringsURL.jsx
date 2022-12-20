@@ -15,6 +15,13 @@ export const queryCharacterBy = {
    gender: 'gender',
 };
 
+export const queryInfo = {
+   count: 'count',
+   pages: 'pages',
+   next: 'next',
+   prev: 'prev',
+};
+
 export const queryLocationBy = {
    name: 'name',
    type: 'type',

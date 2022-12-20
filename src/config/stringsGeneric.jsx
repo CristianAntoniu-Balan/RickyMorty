@@ -9,3 +9,10 @@ export const itemsPerPage = {
    100: 100,
    all: 'all',
 };
+
+export const pageButton = {
+   first: { symBefore: '<< ', txt: 'first' },
+   prev: { symBefore: '< ', txt: 'prev' },
+   next: { symAfter: ' >', txt: 'next' },
+   last: { symAfter: ' >>', txt: 'last' },
+};

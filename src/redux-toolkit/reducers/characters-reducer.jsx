@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import * as characterActions from '../actions/character-actions';
 import { table } from '../../config/stringsTable';
+import { queryInfo } from '../../config/stringsURL';
 
 const initialState = {
    queryCharacters: [],
@@ -23,7 +24,14 @@ const initFiltered = () => {
    });
 };
 
+const resetQueryInfo = () => {
+   Object.keys(queryInfo).forEach((key) => {
+      Object.assign(initialState.queryInfo, { [key]: '' });
+   });
+};
+
 initFiltered();
+resetQueryInfo();
 
 const charactersReducer = createReducer(initialState, (builder) => {
    builder
@@ -84,7 +92,8 @@ const charactersReducer = createReducer(initialState, (builder) => {
       .addCase(
          characterActions.getByQueryAndPage.fulfilled,
          (state = initialState, action) => {
-            state.queryCharacters = [...action.payload];
+            state.queryInfo = { ...action.payload.queryInfo };
+            state.queryCharacters = [...action.payload.chars];
             state.loading = false;
             state.error = null;
          }
@@ -93,6 +102,7 @@ const charactersReducer = createReducer(initialState, (builder) => {
          characterActions.getByQueryAndPage.rejected,
          (state = initialState, action) => {
             state.queryCharacters = [];
+            resetQueryInfo();
             state.loading = false;
             state.error = action.payload;
          }
