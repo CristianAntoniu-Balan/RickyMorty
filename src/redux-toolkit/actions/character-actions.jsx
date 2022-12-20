@@ -3,6 +3,7 @@ import {
    getAllCharacters,
    getOneCharacterById,
    getCharactersForQueryAndPageNo,
+   getCharactersForQueryAndPageInterval,
 } from '../../api/characters';
 
 export const initFilterState = createAction('initFilterState');
@@ -37,6 +38,22 @@ export const getByQueryAndPage = createAsyncThunk(
       const { query, page } = queryData;
       try {
          const res = await getCharactersForQueryAndPageNo(query, page);
+         return res;
+      } catch (err) {
+         return rejectWithValue(err.message);
+      }
+   }
+);
+
+export const getByQueryAndPageInterval = createAsyncThunk(
+   'getByQueryAndPageInterval',
+   async ({ query, firstFetchPage, lastFetchPage }, { rejectWithValue }) => {
+      try {
+         const res = await getCharactersForQueryAndPageInterval(
+            query,
+            firstFetchPage,
+            lastFetchPage
+         );
          return res;
       } catch (err) {
          return rejectWithValue(err.message);

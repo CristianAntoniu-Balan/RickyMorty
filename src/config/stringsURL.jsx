@@ -16,10 +16,10 @@ export const queryCharacterBy = {
 };
 
 export const queryInfo = {
-   count: 'count',
+   count: 0,
    pages: 'pages',
-   next: 'next',
-   prev: 'prev',
+   next: null,
+   prev: null,
 };
 
 export const queryLocationBy = {
@@ -34,4 +34,4 @@ export const queryEpisodeBy = {
 };
 
 export const queryPage = 'page=';
-export const pageItemsCount = 20;
+export const fetchPageItemsCount = 20;

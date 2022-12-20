@@ -7,6 +7,8 @@ import PageNavButton from '../page-nav-button/page-nav-button';
 import { itemsPerPage } from '../../config/stringsGeneric';
 import * as pageActions from '../../redux-toolkit/actions/page-actions';
 
+import './page-nav.module.css';
+
 const PageNav = () => {
    const dispatch = useDispatch();
 
@@ -35,6 +37,15 @@ const PageNav = () => {
 
    const itemsPerPageSelector = Object.entries(itemsPerPage)
       .sort((a, b) => a[0] - b[0])
+      .filter((el) => {
+         if (el[0] <= queryInfo.count || el[0] === 'all') {
+            return el;
+         }
+         return null;
+      })
+      .filter((el) => {
+         if (el !== null) return el;
+      })
       .map(([key, items]) => (
          <option
             key={key}
@@ -43,17 +54,6 @@ const PageNav = () => {
             {items}
          </option>
       ));
-
-   for (let i = 1; i <= page.lastPage; i++) {
-      pageSelector.push(
-         <option
-            key={'a' + i}
-            value={i}
-         >
-            {i}
-         </option>
-      );
-   }
 
    const handlePageChange = (toPageNumber) => {
       dispatch(pageActions.goToPageNumber(toPageNumber));
@@ -64,7 +64,7 @@ const PageNav = () => {
    };
 
    return (
-      <div>
+      <div className="pageNav">
          <span>
             <span>Go to page: </span>
             {navButtons}
@@ -83,10 +83,11 @@ const PageNav = () => {
             <span>Current page: </span>
             <select
                name="goToPageNumber"
-               value={page.itemsPerPage}
+               value={page.currentPage}
                onChange={(e) => handlePageChange(e.target.value)}
             >
-               {pageSelector.map((option) => option)}
+               {/* {pageSelector.map((option) => option)} */}
+               {pageSelector}
             </select>
             <span>
                out of {page.lastPage} page{page.lastPage > 1 && 's'}
