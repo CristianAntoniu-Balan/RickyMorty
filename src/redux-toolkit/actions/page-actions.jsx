@@ -1,7 +1,15 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const forward = createAction('pageForward');
+import { pageButton } from '../../config/stringsGeneric';
 
-export const back = createAction('pageBack');
+export const first = createAction(`${pageButton.first.txt}`);
 
-export const toNumber = createAction('pageToNumber');
+export const prev = createAction(`${pageButton.prev.txt}`);
+
+export const next = createAction(`${pageButton.next.txt}`);
+
+export const last = createAction(`${pageButton.last.txt}`);
+
+export const goToPageNumber = createAction('goToPageNumber');
+
+export const displayPerPage = createAction('displayPerPage');

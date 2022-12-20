@@ -10,40 +10,23 @@ const getTotalOfCharacterPages = fetch(url.baseURL + url.get.characters)
 
 export async function getCharactersForQueryAndPageNo(queryOptions, page) {
    let chars = [];
+   let queryInfo = {};
    const query = queryBuilder(queryOptions, page);
-   await fetch(
-      query
-      // url.baseURL + '/' + url.get.characters + '?' + url.queryPage + page
-   )
+   await fetch(query)
       .then((res) => res.json())
       .then((data) => {
+         queryInfo = { ...data.info };
          chars = [...data.results].filter((result) => {
-            if (queryOptions[url.queryCharacterBy.id] !== '') {
-               // TODO filter the caca here
-               console.log(result.id.toString().test('1'));
-               console.log(
-                  'here',
-                  result.id.test(
-                     new RegExp(
-                        [queryOptions[url.queryCharacterBy.id]].toString(),
-                        'gi'
-                     )
-                  )
-               );
-               return result.id.test(
-                  new RegExp(
-                     [queryOptions[url.queryCharacterBy.id]].toString(),
-                     'gi'
-                  )
-               );
-               // return result.id === queryOptions[url.queryCharacterBy.id];
-            } else return true;
+            return new RegExp(
+               [queryOptions[url.queryCharacterBy.id]].toString(),
+               'gi'
+            ).test(result[url.queryCharacterBy.id]);
          });
       })
       .catch(() => {
          throw new Error(error.fetchAllCharacters);
       });
-   return chars;
+   return { queryInfo, chars };
 }
 
 const queryBuilder = (queryOptions, page) => {
