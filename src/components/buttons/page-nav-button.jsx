@@ -9,9 +9,9 @@ import './button.module.css';
 
 const PageNavButton = ({ type }) => {
    const dispatch = useDispatch();
-   const totalQueryPages = useSelector(
-      (state) => state.characters.queryInfo.pages
-   );
+   // const totalQueryPages = useSelector(
+   //    (state) => state.characters.queryInfo.pages
+   // );
    const page = useSelector((state) => state.page);
 
    const handleClick = (type) => {

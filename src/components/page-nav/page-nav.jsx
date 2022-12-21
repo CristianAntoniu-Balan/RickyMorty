@@ -38,12 +38,6 @@ const PageNav = () => {
 
    const itemsPerPageSelector = Object.entries(itemsPerPage)
       .sort((a, b) => a[0] - b[0])
-      // .filter((el) => {
-      //    if (el[0] <= queryInfo.count || el[0] === 'all') {
-      //       return el;
-      //    }
-      //    return null;
-      // })
       .filter((el) => {
          if (el !== null) return el;
       })
