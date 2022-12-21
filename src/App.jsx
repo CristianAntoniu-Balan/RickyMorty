@@ -1,14 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
-import React, { Suspense } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import { Routes, Route, Link, useParams } from 'react-router-dom';
 
 import styles from './App.module.css';
 import * as characterActions from './redux-toolkit/actions/character-actions';
 import * as userActions from './redux-toolkit/actions/user-actions';
 import * as pageActions from './redux-toolkit/actions/page-actions';
-import Spinner from './components/spinner/spinner';
 
+import * as path from './config/stringsPath';
+
+import Spinner from './components/spinner/spinner';
 import Auth from './hoc/auth/auth';
+
 const LoginPage = React.lazy(() => import('./pages/login-page/login-page'));
 const AllCharactersPage = React.lazy(() =>
    import('./pages/all-characters-page/all-characters-page')
@@ -23,16 +26,35 @@ function App() {
    // const initFilter = useSelector((state) => state.characters.filtered);
    // Object.keys(initFilter).length === 0 &&
    //    dispatch(characterActions.initFilterState());
-   // TODO for testing only
-   const id = 5;
-   // TODO
+
+   const singleCharId = useSelector(
+      (state) => state.characters.selectedCharacterData.id
+   );
+
+   // TODO router history
+   // let singleCharacterPath = path.to.singleCharacter + `/${singleCharId || 0}`;
+   // let singleCharacterPath = path.to.singleCharacter + `:id`;
+
+   // const {testId} = useParams();
+   // useEffect(() => {
+   //    singleCharacterPath = path.to.singleCharacter + `/${singleCharId}`;
+   //    console.log('effectPath -> ', singleCharacterPath);
+   // }, [singleCharId]);
+
+   // console.log('path -> ', singleCharacterPath);
 
    const testElement = (
       <React.Fragment>
          <div onClick={() => dispatch(characterActions.getAll())}>
             Get all characters
          </div>
-         <div onClick={() => dispatch(characterActions.getOneById(id))}>
+         <div
+         // onClick={() =>
+         //    singleCharId
+         //       ? dispatch(characterActions.getOneById(singleCharId || 0))
+         //       : null
+         // }
+         >
             Get ONE character
          </div>
          <div onClick={() => dispatch(userActions.logOut())}>log test</div>
@@ -42,20 +64,22 @@ function App() {
    return (
       <React.Fragment>
          <nav className={styles.navBar}>
-            <Link to="/">Home</Link>
-            <Link to="/characters">Characters</Link>
-            <Link to="/singlechartest">SingleCharTest</Link>
-            <Link to="/login">{isLoggedIn ? 'Log Out' : 'Log In'}</Link>
+            <Link to={path.to.home}>Home</Link>
+            <Link to={path.to.characters}>Characters</Link>
+            <Link to={path.to.singleCharacter + `/${singleCharId || 0}`}>
+               SingleCharTest
+            </Link>
+            <Link to={path.to.login}>{isLoggedIn ? 'Log Out' : 'Log In'}</Link>
          </nav>
          <div>
             <Suspense fallback={<Spinner />}>
                <Routes>
                   <Route
-                     path="/"
+                     path={path.to.home}
                      element={testElement}
                   />
                   <Route
-                     path="/characters"
+                     path={path.to.characters}
                      element={
                         <Auth>
                            <AllCharactersPage />
@@ -63,7 +87,7 @@ function App() {
                      }
                   />
                   <Route
-                     path="/singlechartest"
+                     path={path.to.singleCharacter + `/:id`}
                      element={
                         <Auth>
                            <SingleCharacterPage />
@@ -71,7 +95,7 @@ function App() {
                      }
                   ></Route>
                   <Route
-                     path="/login"
+                     path={path.to.login}
                      element={<LoginPage />}
                   />
                </Routes>
