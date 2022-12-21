@@ -15,7 +15,7 @@ export const queryCharacterBy = {
    gender: 'gender',
 };
 
-export const queryInfo = {
+export const initQueryInfo = {
    count: 0,
    pages: 'pages',
    next: null,

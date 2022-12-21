@@ -8,7 +8,7 @@ const initialState = {
    redirect: { to: '/', trigger: true },
 };
 
-const token_timeToExpireInMinutes = 1;
+const token_timeToExpireInMinutes = 10;
 
 // TODO checkStatus
 // TODO logIn

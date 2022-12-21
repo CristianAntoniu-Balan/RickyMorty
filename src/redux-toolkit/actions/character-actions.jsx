@@ -8,6 +8,8 @@ import {
 
 export const initFilterState = createAction('initFilterState');
 
+export const resetQuery = createAction('resetQuery');
+
 export const getAll = createAsyncThunk(
    'getAll',
    async (res, { rejectWithValue }) => {

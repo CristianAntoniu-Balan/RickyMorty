@@ -5,7 +5,7 @@ import * as pageActions from '../../redux-toolkit/actions/page-actions';
 
 import { pageButton } from '../../config/stringsGeneric';
 
-import './page-nav-button.module.css';
+import './button.module.css';
 
 const PageNavButton = ({ type }) => {
    const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const PageNavButton = ({ type }) => {
       (page.currentPage === page.lastPage &&
          (type === pageButton.next.txt || type === pageButton.last.txt));
 
-   let ret = (
+   let pageNavButtons = (
       <button
          disabled={isDisabled}
          onClick={() => handleClick(type)}
@@ -35,7 +35,7 @@ const PageNavButton = ({ type }) => {
       </button>
    );
 
-   return ret;
+   return pageNavButtons;
 };
 
 export default PageNavButton;

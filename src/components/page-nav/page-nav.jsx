@@ -2,12 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { pageButton } from '../../config/stringsGeneric';
-import PageNavButton from '../page-nav-button/page-nav-button';
+import PageNavButton from '../buttons/page-nav-button';
+import ResetQueryButton from '../buttons/reset-query-button';
 
 import { itemsPerPage } from '../../config/stringsGeneric';
 import * as pageActions from '../../redux-toolkit/actions/page-actions';
 
-import './page-nav.module.css';
+import styles from './page-nav.module.css';
 
 const PageNav = () => {
    const dispatch = useDispatch();
@@ -37,12 +38,12 @@ const PageNav = () => {
 
    const itemsPerPageSelector = Object.entries(itemsPerPage)
       .sort((a, b) => a[0] - b[0])
-      .filter((el) => {
-         if (el[0] <= queryInfo.count || el[0] === 'all') {
-            return el;
-         }
-         return null;
-      })
+      // .filter((el) => {
+      //    if (el[0] <= queryInfo.count || el[0] === 'all') {
+      //       return el;
+      //    }
+      //    return null;
+      // })
       .filter((el) => {
          if (el !== null) return el;
       })
@@ -64,7 +65,7 @@ const PageNav = () => {
    };
 
    return (
-      <div className="pageNav">
+      <div className={styles.pageNav}>
          <span>
             <span>Go to page: </span>
             {navButtons}
@@ -92,6 +93,14 @@ const PageNav = () => {
             <span>
                out of {page.lastPage} page{page.lastPage > 1 && 's'}
             </span>
+         </div>
+         <div>
+            <span>
+               Found {queryInfo.count} character
+               {(queryInfo.count === 0 || queryInfo.count > 1) && 's'} for
+               current query
+            </span>
+            <ResetQueryButton />
          </div>
       </div>
    );

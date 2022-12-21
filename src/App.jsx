@@ -49,7 +49,6 @@ function App() {
          </nav>
          <div>
             <Suspense fallback={<Spinner />}>
-               {/* <Auth> */}
                <Routes>
                   <Route
                      path="/"
@@ -58,9 +57,9 @@ function App() {
                   <Route
                      path="/characters"
                      element={
-                        // <Auth>
-                        <AllCharactersPage />
-                        // </Auth>
+                        <Auth>
+                           <AllCharactersPage />
+                        </Auth>
                      }
                   />
                   <Route
@@ -76,7 +75,6 @@ function App() {
                      element={<LoginPage />}
                   />
                </Routes>
-               {/* </Auth> */}
             </Suspense>
          </div>
       </React.Fragment>

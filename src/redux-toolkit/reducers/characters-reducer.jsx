@@ -1,7 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import * as characterActions from '../actions/character-actions';
 import { table } from '../../config/stringsTable';
-import { queryInfo } from '../../config/stringsURL';
+import { initQueryInfo } from '../../config/stringsURL';
+
+function initQuery() {
+   const initQuery = {};
+   table.forEach((el) => {
+      el.canFilter && Object.assign(initQuery, { [el.id]: el.filterQuery });
+   });
+   return initQuery;
+}
 
 const initialState = {
    queryCharacters: [],
@@ -12,31 +20,17 @@ const initialState = {
       by: 'id',
       type: 1,
    },
-   queryInfo: {},
-   query: {},
-   // {by: query}
+   queryInfo: { ...initQueryInfo },
+   query: { ...initQuery() },
 };
-
-const initFiltered = () => {
-   table.forEach((el) => {
-      el.canFilter &&
-         Object.assign(initialState.query, { [el.id]: el.filterQuery });
-   });
-};
-
-const resetQueryInfo = () => {
-   Object.entries(queryInfo).forEach(([key, value]) => {
-      Object.assign(initialState.queryInfo, { [key]: value });
-   });
-};
-
-initFiltered();
-resetQueryInfo();
 
 const charactersReducer = createReducer(initialState, (builder) => {
    builder
       .addCase(characterActions.updateQuery, (state = initialState, action) => {
          state.query[action.payload.id] = action.payload.value;
+      })
+      .addCase(characterActions.resetQuery, (state = initialState, action) => {
+         state.query = { ...initQuery() };
       })
       .addCase(
          characterActions.getAll.pending,
@@ -82,6 +76,7 @@ const charactersReducer = createReducer(initialState, (builder) => {
             state.queryCharacters = [];
             state.loading = false;
             state.error = action.payload;
+            state.queryInfo = { ...initQueryInfo };
          }
       )
       .addCase(
@@ -126,7 +121,7 @@ const charactersReducer = createReducer(initialState, (builder) => {
          characterActions.getByQueryAndPage.rejected,
          (state = initialState, action) => {
             state.queryCharacters = [];
-            resetQueryInfo();
+            state.queryInfo = { ...initQueryInfo };
             state.loading = false;
             state.error = action.payload;
          }

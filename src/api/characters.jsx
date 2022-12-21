@@ -49,11 +49,15 @@ export async function getCharactersForQueryAndPageInterval(
    let chars = [];
    let queryInfo = {};
    // const pages = await getTotalOfCharacterPages;
-   for (let i = startPage; i <= endPage; i++) {
-      const res = await getCharactersForQueryAndPageNo(query, i);
+   // for (let i = startPage; i <= endPage; i++) {
+   let fetchPageIndex = startPage;
+   while (fetchPageIndex <= endPage) {
+      const res = await getCharactersForQueryAndPageNo(query, fetchPageIndex);
       queryInfo = { ...res.queryInfo };
       chars = [...chars, ...res.chars];
+      res.queryInfo.next ? fetchPageIndex++ : (fetchPageIndex = endPage + 1);
    }
+   // }
    return { queryInfo, chars };
 }
 
