@@ -1,4 +1,7 @@
 .pageNav {
-   display: flex;
+   text-align: center;
+   margin-left: auto;
+   margin-right: auto;
 }
+
 /* TODO not working ? */
