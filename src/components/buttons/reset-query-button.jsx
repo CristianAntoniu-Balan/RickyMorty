@@ -5,16 +5,25 @@ import * as characterActions from '../../redux-toolkit/actions/character-actions
 
 import { resetQuery } from '../../config/stringsGeneric';
 
-import './button.module.css';
+import Button from '../button/button';
 
-const ResetQueryButton = ({ type }) => {
+// import './button.module.css';
+
+const ResetQueryButton = () => {
    const dispatch = useDispatch();
 
-   const handleClick = (type) => {
+   const handleClick = () => {
       dispatch(characterActions.resetQuery());
    };
 
-   return <button onClick={() => handleClick(type)}>{resetQuery.txt}</button>;
+   return (
+      <Button
+         text={resetQuery.txt}
+         clicked={handleClick}
+      />
+   );
+
+   // return <button onClick={() => handleClick()}>{resetQuery.txt}</button>;
 };
 
 export default ResetQueryButton;
