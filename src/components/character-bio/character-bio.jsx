@@ -1,7 +1,5 @@
 import React from 'react';
 
-import CharacterBioTag from '../character-bio-tag/character-bio-tag';
-
 import { formatDate } from '../../utils/utils';
 
 import styles from './character-bio.module.css';
@@ -41,13 +39,15 @@ const CharacterBio = ({
    ];
 
    const bioElement = bioArray.map((el) => (
-      <CharacterBioTag
+      <div
+         className={styles.characterBioTag}
          key={el[0]}
-         tagName={el[0]}
-         tagValue={el[1]}
-      />
+      >
+         <span>{el[0]}</span>
+         <span>{el[1] || 'N/A'}</span>
+      </div>
    ));
-   // TODO make component for each personal info tag-value
+
    return (
       <div className={styles.characterBio}>
          <div className={styles.imgContainer}>

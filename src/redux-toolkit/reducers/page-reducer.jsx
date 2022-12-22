@@ -19,7 +19,6 @@ const pageReducer = createReducer(initialState, (builder) => {
          state.currentPage++;
       })
       .addCase(pageActions.last, (state = initialState, action) => {
-         // TODO
          state.currentPage = Number(state.lastPage);
       })
       .addCase(pageActions.goToPageNumber, (state = initialState, action) => {
