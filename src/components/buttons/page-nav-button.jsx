@@ -5,7 +5,9 @@ import * as pageActions from '../../redux-toolkit/actions/page-actions';
 
 import { pageButton } from '../../config/stringsGeneric';
 
-import './button.module.css';
+import Button from '../button/button';
+
+import styles from './button-nav.module.css';
 
 const PageNavButton = ({ type }) => {
    const dispatch = useDispatch();
@@ -18,24 +20,34 @@ const PageNavButton = ({ type }) => {
       dispatch(pageActions[pageButton[type].txt]());
    };
 
-   const isDisabled =
+   const isButtonDisabled =
       (page.currentPage === 1 &&
          (type === pageButton.first.txt || type === pageButton.prev.txt)) ||
       (page.currentPage === page.lastPage &&
          (type === pageButton.next.txt || type === pageButton.last.txt));
 
-   let pageNavButtons = (
-      <button
-         disabled={isDisabled}
-         onClick={() => handleClick(type)}
-      >
-         {pageButton[type]?.symBefore}
-         {pageButton[type].txt}
-         {pageButton[type]?.symAfter}
-      </button>
-   );
+   const buttonText =
+      (pageButton[type]?.symBefore || '') +
+      pageButton[type].txt +
+      (pageButton[type]?.symAfter || '');
 
-   return pageNavButtons;
+   let pageNavButton = (
+      // <button
+      //    disabled={isDisabled}
+      //    onClick={() => handleClick(type)}
+      // >
+      //    {pageButton[type]?.symBefore}
+      //    {pageButton[type].txt}
+      //    {pageButton[type]?.symAfter}
+      // </button>
+      <Button
+         addClass={styles.buttonNav}
+         text={buttonText}
+         isDisabled={isButtonDisabled}
+         clicked={() => handleClick(type)}
+      />
+   );
+   return pageNavButton;
 };
 
 export default PageNavButton;

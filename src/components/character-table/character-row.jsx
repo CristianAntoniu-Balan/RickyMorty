@@ -11,10 +11,10 @@ import styles from './character-table.module.css';
 
 const CharacterRow = ({ charInfo }) => {
    const navigate = useNavigate();
-   const dispatch = useDispatch();
+   // const dispatch = useDispatch();
 
    const handleClick = (id) => {
-      dispatch(characterActions.getOneById(id));
+      // dispatch(characterActions.getOneById(id));
       navigate(path.to.singleCharacter + `/${id}`);
    };
 

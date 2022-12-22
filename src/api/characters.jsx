@@ -1,6 +1,8 @@
 import * as url from '../config/stringsURL';
 import * as error from '../config/stringsError';
 
+// TODO 300ms delay on query request
+
 const getTotalOfCharacterPages = fetch(url.baseURL + url.get.characters)
    .then((res) => res.json())
    .then((data) => data.info.pages)
