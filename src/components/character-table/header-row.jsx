@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './character-table.module.css';
-import { table } from '../../config/stringsTable';
+import { charactersTable } from '../../config/stringsTable';
 import TableHeaderElement from '../table-header-element/table-header-element';
 
-const tableHeader = table.map((el) => (
+const tableHeader = charactersTable.map((el) => (
    <TableHeaderElement
       key={el.header}
       item={el}

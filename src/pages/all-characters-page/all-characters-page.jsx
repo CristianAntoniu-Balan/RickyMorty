@@ -20,22 +20,11 @@ const AllCharactersPage = () => {
    const sorted = useSelector((state) => state.characters.sorted);
    const displayPage = useSelector((state) => state.page);
 
-   // useEffect(() => {
-   //    dispatch(characterActions.getByQueryAndPage({ query, page: 1 }));
-   // }, [query]);
-
    useEffect(() => {
       const lastDisplayPage =
          queryInfo.count !== 0
             ? Math.ceil(queryInfo.count / displayPage.itemsPerPage)
             : 1;
-      // console.log(
-      //    'setLastPageNumber',
-      //    lastDisplayPage
-      // Number(queryInfo.count),
-      // displayPage.itemsPerPage,
-      // Math.ceil(queryInfo.count / displayPage.itemsPerPage)
-      // );
       dispatch(pageActions.setLastPageNumber(lastDisplayPage));
    }, [queryInfo.count, displayPage.itemsPerPage]);
 
@@ -44,40 +33,16 @@ const AllCharactersPage = () => {
    }, [query]);
 
    useEffect(() => {
-      // pagination logic
-      // visible range
-
       const fetchPageRange = () => {
-         // start old v01
-         // TODO items per page 100, breaks query, check element & page indexes calc
-         // const lastElementIndex = Math.min(
-         //    displayPage.currentPage * displayPage.itemsPerPage,
-         //    Math.max(queryInfo.count, 1)
-         // );
-         // const firstElementIndex =
-         //    Math.max(lastElementIndex - displayPage.itemsPerPage, 1) + 1;
-         // const firstFetchPage = Math.ceil(
-         //    firstElementIndex / fetchPageItemsCount
-         // );
-         // const lastFetchPage = Math.ceil(
-         //    lastElementIndex / fetchPageItemsCount
-         // );
-         // end old v01
-
-         // start v02
          const firstFetchPage = Math.ceil(
             ((displayPage.currentPage - 1) * displayPage.itemsPerPage + 1) /
                fetchPageItemsCount
          );
-         // return queryInfo.count / displayPage.itemsPerPage
 
          const lastFetchPage = Math.ceil(
             (displayPage.currentPage * displayPage.itemsPerPage) /
                fetchPageItemsCount
          );
-
-         // console.log('fetchPages: ', firstFetchPage, lastFetchPage);
-         // end v02
 
          return { firstFetchPage, lastFetchPage };
       };
@@ -88,21 +53,14 @@ const AllCharactersPage = () => {
             ...fetchPageRange(),
          })
       );
-   }, [
-      displayPage.currentPage,
-      displayPage.itemsPerPage,
-      // queryInfo.count,
-      query,
-   ]);
+   }, [displayPage.currentPage, displayPage.itemsPerPage, query]);
 
    // TODO multi-word filter ?
 
-   // filtering index logic
    const minIndex = (() => {
       if (displayPage.currentPage === 1 || displayPage.lastPage === 1) {
          return 0;
       } else {
-         // TODO calcul caca ... make OK ... must check
          return (
             ((displayPage.currentPage - 1) * displayPage.itemsPerPage) %
             fetchPageItemsCount
@@ -111,8 +69,6 @@ const AllCharactersPage = () => {
    })();
 
    const maxIndex = minIndex + displayPage.itemsPerPage - 1;
-
-   // console.log(minIndex, maxIndex);
 
    const charactersTable = () => {
       let charactersDisplay = <Spinner />;

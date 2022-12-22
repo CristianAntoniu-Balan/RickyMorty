@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import * as characterActions from '../actions/character-actions';
-import { table } from '../../config/stringsTable';
+import { charactersTable } from '../../config/stringsTable';
 import { initQueryInfo } from '../../config/stringsURL';
 
 function initQuery() {
    const initQuery = {};
-   table.forEach((el) => {
+   charactersTable.forEach((el) => {
       el.canFilter && Object.assign(initQuery, { [el.id]: el.filterQuery });
    });
    return initQuery;
