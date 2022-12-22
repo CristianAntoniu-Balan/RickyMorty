@@ -1,5 +1,5 @@
 import React from 'react';
-import SpinnerImg from '../../assets/nuclear-alert.gif';
+import SpinnerImg from '../../../assets/nuclear-alert.gif';
 import styles from './spinner.module.css';
 
 const Spinner = () => {

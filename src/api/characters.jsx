@@ -40,7 +40,6 @@ const queryBuilder = (queryOptions, page) => {
    }
    queryString += `page=${page}`;
    return queryString;
-   // TODO
 };
 
 export async function getCharactersForQueryAndPageInterval(
@@ -50,8 +49,6 @@ export async function getCharactersForQueryAndPageInterval(
 ) {
    let chars = [];
    let queryInfo = {};
-   // const pages = await getTotalOfCharacterPages;
-   // for (let i = startPage; i <= endPage; i++) {
    let fetchPageIndex = startPage;
    while (fetchPageIndex <= endPage) {
       const res = await getCharactersForQueryAndPageNo(query, fetchPageIndex);
@@ -59,7 +56,6 @@ export async function getCharactersForQueryAndPageInterval(
       chars = [...chars, ...res.chars];
       res.queryInfo.next ? fetchPageIndex++ : (fetchPageIndex = endPage + 1);
    }
-   // }
    return { queryInfo, chars };
 }
 
@@ -88,5 +84,3 @@ export async function getOneCharacterById(id) {
       });
    return charData;
 }
-
-// TODO getCharactersByQuery(queryString)

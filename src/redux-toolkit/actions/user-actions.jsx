@@ -1,8 +1,7 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { logInAsync, isLoginValid } from '../../api/user';
 
-// TODO checkStatus
-// TODO logIn
+// TODO register
 
 export const logIn = createAsyncThunk(
    'logIn',

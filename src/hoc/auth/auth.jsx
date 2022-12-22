@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import * as userActions from '../../redux-toolkit/actions/user-actions';
 
-import Spinner from '../../components/spinner/spinner';
+import Spinner from '../../components/00-simple-components/spinner/spinner';
 
 const Auth = ({ children }) => {
    const navigate = useNavigate();

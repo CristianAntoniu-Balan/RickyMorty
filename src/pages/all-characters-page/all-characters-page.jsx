@@ -6,9 +6,9 @@ import * as pageActions from '../../redux-toolkit/actions/page-actions';
 
 import { fetchPageItemsCount } from '../../config/stringsURL';
 
-import Spinner from '../../components/spinner/spinner';
-import CharacterRow from '../../components/character-table/character-row';
-import HeaderRow from '../../components/character-table/header-row';
+import Spinner from '../../components/00-simple-components/spinner/spinner';
+import CharacterRow from '../../components/characters-table/characters-row';
+import HeaderRow from '../../components/characters-table/characters-header';
 import PageNav from '../../components/page-nav/page-nav';
 
 const AllCharactersPage = () => {

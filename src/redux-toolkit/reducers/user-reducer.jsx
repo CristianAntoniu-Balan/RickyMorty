@@ -10,8 +10,7 @@ const initialState = {
 
 const token_timeToExpireInMinutes = 10;
 
-// TODO checkStatus
-// TODO logIn
+// TODO register
 
 const userReducer = createReducer(initialState, (builder) => {
    builder

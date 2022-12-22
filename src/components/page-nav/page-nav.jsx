@@ -81,7 +81,6 @@ const PageNav = () => {
                value={page.currentPage}
                onChange={(e) => handlePageChange(e.target.value)}
             >
-               {/* {pageSelector.map((option) => option)} */}
                {pageSelector}
             </select>
             <span>

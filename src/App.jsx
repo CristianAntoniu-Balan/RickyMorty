@@ -9,7 +9,7 @@ import * as pageActions from './redux-toolkit/actions/page-actions';
 
 import * as path from './config/stringsPath';
 
-import Spinner from './components/spinner/spinner';
+import Spinner from './components/00-simple-components/spinner/spinner';
 import Auth from './hoc/auth/auth';
 
 const LoginPage = React.lazy(() => import('./pages/login-page/login-page'));
@@ -23,25 +23,10 @@ const SingleCharacterPage = React.lazy(() =>
 function App() {
    const dispatch = useDispatch();
    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-   // const initFilter = useSelector((state) => state.characters.filtered);
-   // Object.keys(initFilter).length === 0 &&
-   //    dispatch(characterActions.initFilterState());
 
    const singleCharId = useSelector(
       (state) => state.characters.selectedCharacterData.id
    );
-
-   // TODO router history
-   // let singleCharacterPath = path.to.singleCharacter + `/${singleCharId || 0}`;
-   // let singleCharacterPath = path.to.singleCharacter + `:id`;
-
-   // const {testId} = useParams();
-   // useEffect(() => {
-   //    singleCharacterPath = path.to.singleCharacter + `/${singleCharId}`;
-   //    console.log('effectPath -> ', singleCharacterPath);
-   // }, [singleCharId]);
-
-   // console.log('path -> ', singleCharacterPath);
 
    const testElement = (
       <React.Fragment>
@@ -104,7 +89,5 @@ function App() {
       </React.Fragment>
    );
 }
-
-// const ConnectedApp = connect(mapState, actionCreators)(App);
 
 export default App;

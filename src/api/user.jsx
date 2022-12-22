@@ -4,29 +4,7 @@ const baseLoginURL = 'http://localhost:1337/';
 // fake-token-api
 // https://github.com/testdrivenio/fake-token-api.git
 
-// TODO getLoginStatus -> checkToken & expiryTime
 // TODO register ?
-// TODO logIn -> getToken & setExpiryTime
-
-// export const getLoginStatus = fetch(baseLoginURL + 'status')
-//    .then((res) => res.json())
-//    .then((data) => {
-//       if (data.status === 'error') {
-//          console.log('error log in');
-//          throw new Error('not logged in');
-//       } else {
-//          console.log('logged in ok');
-//          return 'ok';
-//       }
-//    })
-//    .catch(() => {
-//       throw new Error('some otter log in error');
-//    });
-
-// let requestHeaders = new Headers();
-// requestHeaders.append('Content-Type', 'application/json');
-
-// export const getLoginStatus = () => true;
 
 export async function logInAsync(data) {
    const myHeaders = new Headers();
