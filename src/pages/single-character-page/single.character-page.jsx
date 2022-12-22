@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import Spinner from '../../components/spinner/spinner';
 import CharacterBio from '../../components/character-bio/character-bio';
 
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
@@ -20,16 +21,13 @@ const SingleCharacterPage = () => {
    const loading = useSelector((state) => state.loading);
    const error = useSelector((state) => state.error);
 
-   // const characterBio = <div></div>;
+   let characterPage = <Spinner />;
 
-   const characterPage = (
-      <div>
-         <div>{`Single Character Page id = ${id}`}</div>
-         <CharacterBio {...characterData} />
-      </div>
-   );
+   if (characterData.id) {
+      characterPage = <CharacterBio {...characterData} />;
+   }
 
-   return characterPage;
+   return <div>{characterPage}</div>;
    // <div>{`Single Character Page id = ${id}`}</div>;
 };
 

@@ -6,3 +6,5 @@ export const classes = (...classCollection) => {
    }
    return allClasses.join(' ');
 };
+
+export const formatDate = (date) => new Date(date).toLocaleString();

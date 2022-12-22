@@ -81,17 +81,17 @@ function App() {
                   <Route
                      path={path.to.characters}
                      element={
-                        <Auth>
-                           <AllCharactersPage />
-                        </Auth>
+                        // <Auth>
+                        <AllCharactersPage />
+                        // </Auth>
                      }
                   />
                   <Route
                      path={path.to.singleCharacter + `/:id`}
                      element={
-                        <Auth>
-                           <SingleCharacterPage />
-                        </Auth>
+                        // <Auth>
+                        <SingleCharacterPage />
+                        // </Auth>
                      }
                   ></Route>
                   <Route

@@ -1,6 +1,6 @@
 import { queryCharacterBy } from './stringsURL';
 
-export const table = [
+export const charactersTable = [
    {
       id: queryCharacterBy.id,
       header: 'Id.',
@@ -51,5 +51,28 @@ export const table = [
       canFilter: true,
       filterQuery: '',
       filterOptions: ['', 'Male', 'Female', 'Genderless', 'unknown'],
+   },
+];
+
+export const episodesTable = [
+   {
+      id: 'id',
+      header: 'Id.',
+      canSort: true,
+   },
+   {
+      id: 'name',
+      header: 'Name',
+      canSort: true,
+   },
+   {
+      id: 'air_date',
+      header: 'Air Date',
+      canSort: true,
+   },
+   {
+      id: 'code',
+      header: 'Code',
+      canSort: true,
    },
 ];
