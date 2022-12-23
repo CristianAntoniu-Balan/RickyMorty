@@ -1,9 +1,14 @@
-import * as url from '../config/stringsURL';
+import { baseURL, api, apiOptions } from '../config/stringsURL';
 import * as error from '../config/stringsError';
 
+import { queryBuilder } from '../utils/utils';
 // TODO 300ms delay on query request
 
-const getTotalOfCharacterPages = fetch(url.baseURL + url.get.characters)
+// TODO make generic get functions: getWithParameters <- apiOptions
+
+const getTotalOfCharacterPages = fetch(
+   baseURL + api[apiOptions.characters].path
+)
    .then((res) => res.json())
    .then((data) => data.info.pages)
    .catch(() => {
@@ -13,16 +18,16 @@ const getTotalOfCharacterPages = fetch(url.baseURL + url.get.characters)
 export async function getCharactersForQueryAndPageNo(queryOptions, page) {
    let chars = [];
    let queryInfo = {};
-   const query = queryBuilder(queryOptions, page);
+   const query = queryBuilder(apiOptions.characters, queryOptions, page);
    await fetch(query)
       .then((res) => res.json())
       .then((data) => {
          queryInfo = { ...data.info };
          chars = [...data.results].filter((result) => {
             return new RegExp(
-               [queryOptions[url.queryCharacterBy.id]].toString(),
+               [queryOptions[api[apiOptions.characters].queryBy.id]].toString(),
                'gi'
-            ).test(result[url.queryCharacterBy.id]);
+            ).test(result[api[apiOptions.characters].queryBy.id]);
          });
       })
       .catch(() => {
@@ -30,17 +35,6 @@ export async function getCharactersForQueryAndPageNo(queryOptions, page) {
       });
    return { queryInfo, chars };
 }
-
-const queryBuilder = (queryOptions, page) => {
-   let queryString = url.baseURL + url.get.characters + '/?';
-   for (const [key, value] of Object.entries(queryOptions)) {
-      key !== url.queryCharacterBy.id &&
-         value !== '' &&
-         (queryString += `${key}=${value}&`);
-   }
-   queryString += `page=${page}`;
-   return queryString;
-};
 
 export async function getCharactersForQueryAndPageInterval(
    query,
@@ -71,7 +65,7 @@ export async function getAllCharacters() {
 
 export async function getOneCharacterById(id) {
    let charData = {};
-   await fetch(url.baseURL + url.get.characters + '/' + id)
+   await fetch(baseURL + api[apiOptions.characters].path + '/' + id)
       .then((res) => res.json())
       .then((data) => {
          if (data.error) {

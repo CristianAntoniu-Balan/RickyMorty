@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './table-header-element.module.css';
-import SortArrow from '../sort-arrow/sort-arrow';
+import SortArrow from '../00-simple-components/sort-arrow/sort-arrow';
 import { useDispatch, useSelector } from 'react-redux';
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
 

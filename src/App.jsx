@@ -51,7 +51,7 @@ function App() {
          <nav className={styles.navBar}>
             <Link to={path.to.home}>Home</Link>
             <Link to={path.to.characters}>Characters</Link>
-            <Link to={path.to.singleCharacter + `/${singleCharId || 0}`}>
+            <Link to={path.to.singleCharacter + `/${singleCharId || '0'}`}>
                SingleCharTest
             </Link>
             <Link to={path.to.login}>{isLoggedIn ? 'Log Out' : 'Log In'}</Link>
@@ -63,14 +63,24 @@ function App() {
                      path={path.to.home}
                      element={testElement}
                   />
-                  <Route
-                     path={path.to.characters}
-                     element={
-                        // <Auth>
-                        <AllCharactersPage />
-                        // </Auth>
-                     }
-                  />
+                  <Route path={path.to.characters}>
+                     <Route
+                        path=""
+                        element={
+                           // <Auth>
+                           <AllCharactersPage />
+                           // </Auth>
+                        }
+                     />
+                     <Route
+                        path=":charactersQuery"
+                        element={
+                           // <Auth>
+                           <AllCharactersPage />
+                           // </Auth>
+                        }
+                     />
+                  </Route>
                   <Route
                      path={path.to.singleCharacter + `/:id`}
                      element={

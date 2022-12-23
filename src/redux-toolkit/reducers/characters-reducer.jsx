@@ -82,6 +82,7 @@ const charactersReducer = createReducer(initialState, (builder) => {
       .addCase(
          characterActions.getOneById.pending,
          (state = initialState, action) => {
+            state.selectedCharacterData = {};
             state.loading = true;
             state.error = null;
          }

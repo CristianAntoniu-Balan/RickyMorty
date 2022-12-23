@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useLocation } from 'react-router-dom';
 
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
 import * as pageActions from '../../redux-toolkit/actions/page-actions';
@@ -10,9 +11,13 @@ import Spinner from '../../components/00-simple-components/spinner/spinner';
 import CharacterRow from '../../components/characters-table/characters-row';
 import HeaderRow from '../../components/characters-table/characters-header';
 import PageNav from '../../components/page-nav/page-nav';
+import CharactersTable from '../../components/characters-table/characters-table';
 
 const AllCharactersPage = () => {
    const dispatch = useDispatch();
+   const charactersQuery = useParams();
+
+   console.log(charactersQuery);
 
    const characters = useSelector((state) => state.characters.queryCharacters);
    const query = useSelector((state) => state.characters.query);
@@ -57,50 +62,58 @@ const AllCharactersPage = () => {
 
    // TODO multi-word filter ?
 
-   const minIndex = (() => {
-      if (displayPage.currentPage === 1 || displayPage.lastPage === 1) {
-         return 0;
-      } else {
-         return (
-            ((displayPage.currentPage - 1) * displayPage.itemsPerPage) %
-            fetchPageItemsCount
-         );
-      }
-   })();
+   // TODO current page resets after visiting single character page
 
-   const maxIndex = minIndex + displayPage.itemsPerPage - 1;
+   // const minIndex = (() => {
+   //    if (displayPage.currentPage === 1 || displayPage.lastPage === 1) {
+   //       return 0;
+   //    } else {
+   //       return (
+   //          ((displayPage.currentPage - 1) * displayPage.itemsPerPage) %
+   //          fetchPageItemsCount
+   //       );
+   //    }
+   // })();
 
-   const charactersTable = () => {
-      let charactersDisplay = <Spinner />;
-      if (characters.length) {
-         charactersDisplay = characters
-            .slice()
-            .filter((el, index) => {
-               if (index >= minIndex && index <= maxIndex) return el;
-            })
-            .sort((a, b) => {
-               if (a[sorted.by] > b[sorted.by]) {
-                  return sorted.type;
-               }
-               return -1 * sorted.type;
-            })
-            .map((character) => (
-               <CharacterRow
-                  key={character.id}
-                  charInfo={character}
-               />
-            ));
-      }
-      return (
-         <React.Fragment>
-            <PageNav />
-            <HeaderRow />
-            {charactersDisplay}
-         </React.Fragment>
-      );
-   };
+   // const maxIndex = minIndex + displayPage.itemsPerPage - 1;
 
-   return charactersTable();
+   // const charactersTable = () => {
+   //    let charactersDisplay = <Spinner />;
+   //    if (characters.length) {
+   //       charactersDisplay = characters
+   //          .slice()
+   //          .filter((el, index) => {
+   //             if (index >= minIndex && index <= maxIndex) return el;
+   //          })
+   //          .sort((a, b) => {
+   //             if (a[sorted.by] > b[sorted.by]) {
+   //                return sorted.type;
+   //             }
+   //             return -1 * sorted.type;
+   //          })
+   //          .map((character) => (
+   //             <CharacterRow
+   //                key={character.id}
+   //                charInfo={character}
+   //             />
+   //          ));
+   //    }
+   //    return (
+   //       <React.Fragment>
+   //          <PageNav />
+   //          <HeaderRow />
+   //          {charactersDisplay}
+   //       </React.Fragment>
+   //    );
+   // };
+
+   // return charactersTable();
+   return (
+      <React.Fragment>
+         <PageNav />
+         <CharactersTable />
+      </React.Fragment>
+   );
 };
 
 export default AllCharactersPage;
