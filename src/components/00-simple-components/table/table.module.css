@@ -1,0 +1,13 @@
+.imgContainer {
+   display: block;
+   max-width: 4em;
+   max-height: 4em;
+   margin: auto;
+}
+
+img {
+   align-items: center;
+   justify-content: center;
+   max-height: 70%;
+   max-width: 70%;
+}

@@ -1,8 +1,8 @@
-import { queryCharacterBy } from './stringsURL';
+import { api } from './stringsURL';
 
 export const charactersTable = [
    {
-      id: queryCharacterBy.id,
+      id: api.characters.queryBy.id,
       header: 'Id.',
       canSort: true,
       canFilter: true,
@@ -16,14 +16,14 @@ export const charactersTable = [
       filterQuery: '',
    },
    {
-      id: queryCharacterBy.name,
+      id: api.characters.queryBy.name,
       header: 'Name',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: queryCharacterBy.status,
+      id: api.characters.queryBy.status,
       header: 'Status',
       canSort: true,
       canFilter: true,
@@ -31,21 +31,21 @@ export const charactersTable = [
       filterOptions: ['', 'Alive', 'Dead', 'unknown'],
    },
    {
-      id: queryCharacterBy.species,
+      id: api.characters.queryBy.species,
       header: 'Species',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: queryCharacterBy.type,
+      id: api.characters.queryBy.type,
       header: 'Type',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: queryCharacterBy.gender,
+      id: api.characters.queryBy.gender,
       header: 'Gender',
       canSort: true,
       canFilter: true,

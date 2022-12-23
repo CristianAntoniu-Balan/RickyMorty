@@ -18,19 +18,26 @@
    justify-content: center;
 }
 
-.characterTableLayout .imgContainer {
+/* .characterTableLayout .imgContainer {
    display: block;
    max-width: 5em;
    max-height: 5em;
    margin: auto;
-}
+} */
 
-.characterTableLayout img {
+/* .imgContainer {
+   display: block;
+   max-width: 5em;
+   max-height: 5em;
+   margin: auto;
+} */
+
+/* .characterTableLayout img {
    align-items: center;
    justify-content: center;
    max-height: 70%;
    max-width: 70%;
-}
+} */
 
 .characterTableLayout:hover {
    background-color: lightblue;
@@ -38,6 +45,10 @@
 
 .headerRow {
    font-weight: bold;
+}
+
+.headerRow > * {
+   display: block;
 }
 
 .headerRow:hover {

@@ -1,5 +1,5 @@
 export const to = {
-   home: '/',
+   home: '/home',
    characters: '/characters',
    singleCharacter: '/singlechar',
    login: '/login',

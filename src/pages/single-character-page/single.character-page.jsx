@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import Spinner from '../../components/00-simple-components/spinner/spinner';
 import CharacterBio from '../../components/character-bio/character-bio';
