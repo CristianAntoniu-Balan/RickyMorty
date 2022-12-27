@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
 import * as pageActions from '../../redux-toolkit/actions/page-actions';
+
+import { localQueryBuilder, updatedStateObject } from '../../utils/utils';
 
 import { fetchPageItemsCount } from '../../config/stringsURL';
 
@@ -15,15 +17,53 @@ import CharactersTable from '../../components/characters-table/characters-table'
 
 const AllCharactersPage = () => {
    const dispatch = useDispatch();
-   const charactersQuery = useParams();
+   const navigate = useNavigate();
+   const location = useLocation();
+   // const charactersQuery = useParams();
 
-   console.log(charactersQuery);
+   // console.log(charactersQuery);
 
    const characters = useSelector((state) => state.characters.queryCharacters);
-   const query = useSelector((state) => state.characters.query);
+   const queryOptions = useSelector((state) => state.characters.query);
    const queryInfo = useSelector((state) => state.characters.queryInfo);
    const sorted = useSelector((state) => state.characters.sorted);
    const displayPage = useSelector((state) => state.page);
+
+   useEffect(() => {
+      // TODO parse query string and dispatch ...
+      console.log('updated');
+
+      const queryStateToBeUpdated = updatedStateObject(
+         queryOptions,
+         location.search
+      );
+      const pageStateToBeUpdated = updatedStateObject(
+         displayPage,
+         location.search
+      );
+
+      if (Object.keys(queryStateToBeUpdated).length) {
+         dispatch(characterActions.updateQuery(queryStateToBeUpdated));
+         // dispatch(pageActions.goToPageNumber(1));
+      }
+
+      if (Object.keys(pageStateToBeUpdated).length) {
+         dispatch(
+            pageActions.displayPerPage(pageStateToBeUpdated.itemsPerPage)
+         );
+         dispatch(pageActions.goToPageNumber(pageStateToBeUpdated.currentPage));
+      }
+
+      if (location.search === '') {
+         console.log('empty', location);
+      }
+   }, [location.search]);
+
+   useEffect(() => {
+      navigate(
+         location.pathname + localQueryBuilder(queryOptions, displayPage)
+      );
+   }, [location.search, queryOptions, displayPage]);
 
    useEffect(() => {
       const lastDisplayPage =
@@ -35,7 +75,7 @@ const AllCharactersPage = () => {
 
    useEffect(() => {
       dispatch(pageActions.goToPageNumber(1));
-   }, [query]);
+   }, [queryOptions]);
 
    useEffect(() => {
       const fetchPageRange = () => {
@@ -54,11 +94,15 @@ const AllCharactersPage = () => {
 
       dispatch(
          characterActions.getByQueryAndPageInterval({
-            query,
+            queryOptions,
             ...fetchPageRange(),
          })
       );
-   }, [displayPage.currentPage, displayPage.itemsPerPage, query]);
+
+      // navigate(
+      //    location.pathname + localQueryBuilder(queryOptions, displayPage)
+      // );
+   }, [displayPage, queryOptions]);
 
    // TODO multi-word filter ?
 

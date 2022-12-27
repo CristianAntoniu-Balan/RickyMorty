@@ -14,7 +14,7 @@ const TableHeaderElement = ({ item }) => {
    };
 
    const handleQueryChange = (value) => {
-      dispatch(characterActions.updateQuery(item.id, value));
+      dispatch(characterActions.updateQueryItem(item.id, value));
    };
 
    const queryField = !item?.filterOptions ? (

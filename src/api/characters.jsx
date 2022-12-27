@@ -1,7 +1,7 @@
 import { baseURL, api, apiOptions } from '../config/stringsURL';
 import * as error from '../config/stringsError';
 
-import { queryBuilder } from '../utils/utils';
+import { apiQueryBuilder } from '../utils/utils';
 // TODO 300ms delay on query request
 
 // TODO make generic get functions: getWithParameters <- apiOptions
@@ -18,7 +18,12 @@ const getTotalOfCharacterPages = fetch(
 export async function getCharactersForQueryAndPageNo(queryOptions, page) {
    let chars = [];
    let queryInfo = {};
-   const query = queryBuilder(apiOptions.characters, queryOptions, page);
+
+   const query =
+      baseURL +
+      api[apiOptions.characters].path +
+      apiQueryBuilder(queryOptions, page);
+
    await fetch(query)
       .then((res) => res.json())
       .then((data) => {
@@ -37,7 +42,7 @@ export async function getCharactersForQueryAndPageNo(queryOptions, page) {
 }
 
 export async function getCharactersForQueryAndPageInterval(
-   query,
+   queryOptions,
    startPage,
    endPage
 ) {
@@ -45,7 +50,10 @@ export async function getCharactersForQueryAndPageInterval(
    let queryInfo = {};
    let fetchPageIndex = startPage;
    while (fetchPageIndex <= endPage) {
-      const res = await getCharactersForQueryAndPageNo(query, fetchPageIndex);
+      const res = await getCharactersForQueryAndPageNo(
+         queryOptions,
+         fetchPageIndex
+      );
       queryInfo = { ...res.queryInfo };
       chars = [...chars, ...res.chars];
       res.queryInfo.next ? fetchPageIndex++ : (fetchPageIndex = endPage + 1);

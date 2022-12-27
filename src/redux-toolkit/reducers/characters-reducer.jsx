@@ -26,11 +26,22 @@ const initialState = {
 
 const charactersReducer = createReducer(initialState, (builder) => {
    builder
-      .addCase(characterActions.updateQuery, (state = initialState, action) => {
-         state.query[action.payload.id] = action.payload.value;
-      })
       .addCase(characterActions.resetQuery, (state = initialState, action) => {
          state.query = { ...initQuery() };
+      })
+      .addCase(
+         characterActions.updateQueryItem,
+         (state = initialState, action) => {
+            state.query[action.payload.id] = action.payload.value;
+         }
+      )
+      .addCase(characterActions.updateQuery, (state = initialState, action) => {
+         // state.query = { ...action.payload };
+         for (const [key, value] of Object.entries(action.payload)) {
+            if ([key] in state.query) {
+               state.query[key] = value;
+            }
+         }
       })
       .addCase(
          characterActions.getAll.pending,
