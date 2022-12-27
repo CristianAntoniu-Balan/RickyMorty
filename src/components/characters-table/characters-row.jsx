@@ -11,7 +11,7 @@ const CharacterRow = ({ charInfo }) => {
    const navigate = useNavigate();
 
    const handleClick = (id) => {
-      navigate(path.to.singleCharacter + `/${id}`);
+      navigate(path.to.singleCharacter + `${id}`);
    };
 
    const elementsArray = [

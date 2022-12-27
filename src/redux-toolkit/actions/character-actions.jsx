@@ -49,10 +49,13 @@ export const getByQueryAndPage = createAsyncThunk(
 
 export const getByQueryAndPageInterval = createAsyncThunk(
    'getByQueryAndPageInterval',
-   async ({ query, firstFetchPage, lastFetchPage }, { rejectWithValue }) => {
+   async (
+      { queryOptions, firstFetchPage, lastFetchPage },
+      { rejectWithValue }
+   ) => {
       try {
          const res = await getCharactersForQueryAndPageInterval(
-            query,
+            queryOptions,
             firstFetchPage,
             lastFetchPage
          );
@@ -65,8 +68,8 @@ export const getByQueryAndPageInterval = createAsyncThunk(
 
 export const sortCharacters = createAction('sortCharacters');
 
-export const updateQuery = createAction(
-   'updateQuery',
+export const updateQueryItem = createAction(
+   'updateQueryItem',
    function prepare(id, value) {
       return {
          payload: {
@@ -76,3 +79,5 @@ export const updateQuery = createAction(
       };
    }
 );
+
+export const updateQuery = createAction('updateQuery');

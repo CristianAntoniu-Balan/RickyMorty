@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { Suspense, useEffect } from 'react';
-import { Routes, Route, Link, useParams } from 'react-router-dom';
+import { Routes, Route, Link, useParams, useLocation } from 'react-router-dom';
 
 import styles from './App.module.css';
 import * as characterActions from './redux-toolkit/actions/character-actions';
@@ -51,7 +51,7 @@ function App() {
          <nav className={styles.navBar}>
             <Link to={path.to.home}>Home</Link>
             <Link to={path.to.characters}>Characters</Link>
-            <Link to={path.to.singleCharacter + `/${singleCharId || '0'}`}>
+            <Link to={path.to.singleCharacter + `${singleCharId || '0'}`}>
                SingleCharTest
             </Link>
             <Link to={path.to.login}>{isLoggedIn ? 'Log Out' : 'Log In'}</Link>
@@ -72,17 +72,17 @@ function App() {
                            // </Auth>
                         }
                      />
-                     <Route
+                     {/* <Route
                         path=":charactersQuery"
                         element={
                            // <Auth>
                            <AllCharactersPage />
                            // </Auth>
                         }
-                     />
+                     /> */}
                   </Route>
                   <Route
-                     path={path.to.singleCharacter + `/:id`}
+                     path={path.to.singleCharacter + `:id`}
                      element={
                         // <Auth>
                         <SingleCharacterPage />
