@@ -1,11 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { Suspense, useEffect } from 'react';
-import { Routes, Route, Link, useParams, useLocation } from 'react-router-dom';
+import {
+   Routes,
+   Route,
+   Link,
+   Navigate,
+   useNavigate,
+   useParams,
+   useLocation,
+} from 'react-router-dom';
 
 import styles from './App.module.css';
 import * as characterActions from './redux-toolkit/actions/character-actions';
 import * as userActions from './redux-toolkit/actions/user-actions';
 import * as pageActions from './redux-toolkit/actions/page-actions';
+import * as pageActionsTest from './redux-toolkit/actions/page-actions-test';
 
 import * as path from './config/stringsPath';
 
@@ -27,6 +36,8 @@ function App() {
    const singleCharId = useSelector(
       (state) => state.characters.selectedCharacterData.id
    );
+
+   dispatch(pageActionsTest.nextTest('charactersTest')('payload'));
 
    const testElement = (
       <React.Fragment>
@@ -62,6 +73,10 @@ function App() {
                   <Route
                      path={path.to.home}
                      element={testElement}
+                  />
+                  <Route
+                     path="/"
+                     element={<Navigate to={path.to.home} />}
                   />
                   <Route path={path.to.characters}>
                      <Route

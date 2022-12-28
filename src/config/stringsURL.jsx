@@ -7,7 +7,7 @@ export const apiOptions = {
 };
 
 export const api = {
-   characters: {
+   [apiOptions.characters]: {
       path: '/character/',
       queryBy: {
          id: 'id',
@@ -18,7 +18,7 @@ export const api = {
          gender: 'gender',
       },
    },
-   locations: {
+   [apiOptions.locations]: {
       path: '/location/',
       queryBy: {
          name: 'name',
@@ -26,7 +26,7 @@ export const api = {
          dimension: 'dimension',
       },
    },
-   episodes: {
+   [apiOptions.episodes]: {
       path: '/episode/',
       queryBy: {
          name: 'name',

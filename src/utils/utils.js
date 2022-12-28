@@ -44,7 +44,7 @@ export const apiQueryBuilder = (queryOptions, page) => {
    return apiQuery;
 };
 
-export const localQueryBuilder = (
+export const localCharactersQuery = (
    queryOptions,
    { currentPage, itemsPerPage }
 ) => {
@@ -58,15 +58,13 @@ export const localQueryBuilder = (
    return localQuery;
 };
 
-const localQueryParser = (localQueryString) => {
+const localCharactersQueryParser = (localQueryString) => {
    // TODO make check logic
-   // console.log(localQueryString);
    if (localQueryString.length) {
       let queryOptionsArray = localQueryString
          .slice(1)
          .split('&')
          .map((el) => el.split('='));
-      // console.log('testParser -> ', queryOptionsArray);
 
       return queryOptionsArray;
    } else {
@@ -77,17 +75,13 @@ const localQueryParser = (localQueryString) => {
 export function updatedStateObject(stateObject, localQueryString) {
    let updatedObject = {};
 
-   localQueryParser(localQueryString).length &&
-      localQueryParser(localQueryString).forEach(([queryItem, queryValue]) => {
-         // console.log(
-         //    'check -> ',
-         //    [queryItem] in stateObject,
-         //    queryItem,
-         //    queryValue
-         // );
-         [queryItem] in stateObject &&
-            Object.assign(updatedObject, { [queryItem]: queryValue });
-      });
+   localCharactersQueryParser(localQueryString).length &&
+      localCharactersQueryParser(localQueryString).forEach(
+         ([queryItem, queryValue]) => {
+            [queryItem] in stateObject &&
+               Object.assign(updatedObject, { [queryItem]: queryValue });
+         }
+      );
 
    return updatedObject;
 }

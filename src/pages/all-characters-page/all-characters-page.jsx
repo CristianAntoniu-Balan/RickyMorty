@@ -5,7 +5,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
 import * as pageActions from '../../redux-toolkit/actions/page-actions';
 
-import { localQueryBuilder, updatedStateObject } from '../../utils/utils';
+import { localCharactersQuery, updatedStateObject } from '../../utils/utils';
 
 import { fetchPageItemsCount } from '../../config/stringsURL';
 
@@ -30,52 +30,15 @@ const AllCharactersPage = () => {
    const displayPage = useSelector((state) => state.page);
 
    useEffect(() => {
-      // TODO parse query string and dispatch ...
-      console.log('updated');
-
-      const queryStateToBeUpdated = updatedStateObject(
-         queryOptions,
-         location.search
-      );
-      const pageStateToBeUpdated = updatedStateObject(
-         displayPage,
-         location.search
-      );
-
-      if (Object.keys(queryStateToBeUpdated).length) {
-         dispatch(characterActions.updateQuery(queryStateToBeUpdated));
-         // dispatch(pageActions.goToPageNumber(1));
-      }
-
-      if (Object.keys(pageStateToBeUpdated).length) {
-         dispatch(
-            pageActions.displayPerPage(pageStateToBeUpdated.itemsPerPage)
-         );
-         dispatch(pageActions.goToPageNumber(pageStateToBeUpdated.currentPage));
-      }
-
-      if (location.search === '') {
-         console.log('empty', location);
-      }
-   }, [location.search]);
+      console.log('here to page 1');
+      dispatch(pageActions.goToPageNumber(1));
+   }, [queryOptions]);
 
    useEffect(() => {
       navigate(
-         location.pathname + localQueryBuilder(queryOptions, displayPage)
+         location.pathname + localCharactersQuery(queryOptions, displayPage)
       );
    }, [location.search, queryOptions, displayPage]);
-
-   useEffect(() => {
-      const lastDisplayPage =
-         queryInfo.count !== 0
-            ? Math.ceil(queryInfo.count / displayPage.itemsPerPage)
-            : 1;
-      dispatch(pageActions.setLastPageNumber(lastDisplayPage));
-   }, [queryInfo.count, displayPage.itemsPerPage]);
-
-   useEffect(() => {
-      dispatch(pageActions.goToPageNumber(1));
-   }, [queryOptions]);
 
    useEffect(() => {
       const fetchPageRange = () => {
@@ -104,54 +67,55 @@ const AllCharactersPage = () => {
       // );
    }, [displayPage, queryOptions]);
 
+   useEffect(() => {
+      const lastDisplayPage =
+         queryInfo.count !== 0
+            ? Math.ceil(queryInfo.count / displayPage.itemsPerPage)
+            : 1;
+      dispatch(pageActions.setLastPageNumber(lastDisplayPage));
+   }, [queryInfo.count, displayPage.itemsPerPage]);
+
+   // useEffect(() => {
+   //    if (displayPage.currentPage > displayPage.lastPage) {
+   //       console.log('here to last page');
+   //       dispatch(pageActions.goToPageNumber(displayPage.lastPage));
+   //    }
+   // }, [displayPage]);
+
+   useEffect(() => {
+      // TODO parse query string and dispatch ...
+      console.log('updated');
+
+      const queryStateToBeUpdated = updatedStateObject(
+         queryOptions,
+         location.search
+      );
+      const pageStateToBeUpdated = updatedStateObject(
+         displayPage,
+         location.search
+      );
+
+      if (Object.keys(pageStateToBeUpdated).length) {
+         dispatch(
+            pageActions.displayPerPage(pageStateToBeUpdated.itemsPerPage)
+         );
+         dispatch(pageActions.goToPageNumber(pageStateToBeUpdated.currentPage));
+      }
+
+      if (Object.keys(queryStateToBeUpdated).length) {
+         dispatch(characterActions.updateQuery(queryStateToBeUpdated));
+         // dispatch(pageActions.goToPageNumber(1));
+      }
+
+      if (location.search === '') {
+         console.log('empty', location);
+      }
+   }, [location.search]);
+
    // TODO multi-word filter ?
 
    // TODO current page resets after visiting single character page
 
-   // const minIndex = (() => {
-   //    if (displayPage.currentPage === 1 || displayPage.lastPage === 1) {
-   //       return 0;
-   //    } else {
-   //       return (
-   //          ((displayPage.currentPage - 1) * displayPage.itemsPerPage) %
-   //          fetchPageItemsCount
-   //       );
-   //    }
-   // })();
-
-   // const maxIndex = minIndex + displayPage.itemsPerPage - 1;
-
-   // const charactersTable = () => {
-   //    let charactersDisplay = <Spinner />;
-   //    if (characters.length) {
-   //       charactersDisplay = characters
-   //          .slice()
-   //          .filter((el, index) => {
-   //             if (index >= minIndex && index <= maxIndex) return el;
-   //          })
-   //          .sort((a, b) => {
-   //             if (a[sorted.by] > b[sorted.by]) {
-   //                return sorted.type;
-   //             }
-   //             return -1 * sorted.type;
-   //          })
-   //          .map((character) => (
-   //             <CharacterRow
-   //                key={character.id}
-   //                charInfo={character}
-   //             />
-   //          ));
-   //    }
-   //    return (
-   //       <React.Fragment>
-   //          <PageNav />
-   //          <HeaderRow />
-   //          {charactersDisplay}
-   //       </React.Fragment>
-   //    );
-   // };
-
-   // return charactersTable();
    return (
       <React.Fragment>
          <PageNav />
