@@ -1,8 +1,8 @@
-import { api } from './stringsURL';
+import { api, apiOptions } from './stringsURL';
 
 export const charactersTable = [
    {
-      id: api.characters.queryBy.id,
+      id: api[apiOptions.characters].queryBy.id,
       header: 'Id.',
       canSort: true,
       canFilter: true,
@@ -16,14 +16,14 @@ export const charactersTable = [
       filterQuery: '',
    },
    {
-      id: api.characters.queryBy.name,
+      id: api[apiOptions.characters].queryBy.name,
       header: 'Name',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: api.characters.queryBy.status,
+      id: api[apiOptions.characters].queryBy.status,
       header: 'Status',
       canSort: true,
       canFilter: true,
@@ -31,21 +31,21 @@ export const charactersTable = [
       filterOptions: ['', 'Alive', 'Dead', 'unknown'],
    },
    {
-      id: api.characters.queryBy.species,
+      id: api[apiOptions.characters].queryBy.species,
       header: 'Species',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: api.characters.queryBy.type,
+      id: api[apiOptions.characters].queryBy.type,
       header: 'Type',
       canSort: true,
       canFilter: true,
       filterQuery: '',
    },
    {
-      id: api.characters.queryBy.gender,
+      id: api[apiOptions.characters].queryBy.gender,
       header: 'Gender',
       canSort: true,
       canFilter: true,
@@ -56,23 +56,53 @@ export const charactersTable = [
 
 export const episodesTable = [
    {
-      id: 'id',
+      id: api[apiOptions.episodes].queryBy.id,
       header: 'Id.',
       canSort: true,
+      canFilter: true,
    },
    {
-      id: 'name',
+      id: api[apiOptions.episodes].queryBy.name,
       header: 'Name',
       canSort: true,
+      canFilter: true,
    },
    {
       id: 'air_date',
       header: 'Air Date',
       canSort: true,
+      canFilter: false,
    },
    {
-      id: 'code',
+      id: api[apiOptions.episodes].queryBy.episodeCode,
       header: 'Code',
       canSort: true,
+   },
+];
+
+export const locationsTable = [
+   {
+      id: api[apiOptions.locations].queryBy.id,
+      header: 'Id.',
+      canSort: true,
+      canFilter: true,
+   },
+   {
+      id: api[apiOptions.locations].queryBy.name,
+      header: 'Name',
+      canSort: true,
+      canFilter: true,
+   },
+   {
+      id: api[apiOptions.locations].queryBy.type,
+      header: 'Type',
+      canSort: true,
+      canFilter: true,
+   },
+   {
+      id: api[apiOptions.locations].queryBy.dimension,
+      header: 'Dimension',
+      canSort: true,
+      canFilter: true,
    },
 ];

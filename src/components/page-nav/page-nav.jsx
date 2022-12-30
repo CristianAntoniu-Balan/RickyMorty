@@ -6,15 +6,20 @@ import PageNavButton from '../buttons/page-nav-button';
 import ResetQueryButton from '../buttons/reset-query-button';
 
 import { itemsPerPage } from '../../config/stringsGeneric';
-import * as pageActions from '../../redux-toolkit/actions/page-actions';
+// import * as pageActions from '../../redux-toolkit/actions/page-actions';
+import {
+   goToPageNumber,
+   displayPerPage,
+} from '../../redux-toolkit/slices/page-slice';
 
 import styles from './page-nav.module.css';
 
 const PageNav = () => {
    const dispatch = useDispatch();
 
+   const context = useSelector((state) => state.context);
    const queryInfo = useSelector((state) => state.characters.queryInfo);
-   const page = useSelector((state) => state.page);
+   const page = useSelector((state) => state.page[context]);
 
    const navButtons = Object.keys(pageButton).map((buttonType) => (
       <PageNavButton
@@ -51,11 +56,11 @@ const PageNav = () => {
       ));
 
    const handlePageChange = (toPageNumber) => {
-      dispatch(pageActions.goToPageNumber(toPageNumber));
+      dispatch(goToPageNumber({ context, value: toPageNumber }));
    };
 
    const handleItemsChange = (items) => {
-      dispatch(pageActions.displayPerPage(items));
+      dispatch(displayPerPage({ context, value: items }));
    };
 
    return (

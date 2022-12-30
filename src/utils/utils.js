@@ -1,7 +1,7 @@
 import { baseURL, api } from '../config/stringsURL';
 
 export const classes = (...classCollection) => {
-   // TODO check logic
+   // TODO not working / check
    let allClasses = [];
    for (const cls of classCollection) {
       allClasses.push(cls);
@@ -44,12 +44,14 @@ export const apiQueryBuilder = (queryOptions, page) => {
    return apiQuery;
 };
 
-export const localCharactersQuery = (
-   queryOptions,
-   { currentPage, itemsPerPage }
+export const localQuery = (
+   { currentPage, itemsPerPage },
+   sort,
+   queryOptions
 ) => {
    // TODO local sort query
    let localQuery = `?currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`;
+   localQuery += `&sortBy=${sort.by}&sortType=${sort.type}`;
 
    queryString(queryOptions).length
       ? (localQuery += `&${queryString(queryOptions)}`)
@@ -58,7 +60,7 @@ export const localCharactersQuery = (
    return localQuery;
 };
 
-const localCharactersQueryParser = (localQueryString) => {
+const localQueryParser = (localQueryString) => {
    // TODO make check logic
    if (localQueryString.length) {
       let queryOptionsArray = localQueryString
@@ -75,13 +77,19 @@ const localCharactersQueryParser = (localQueryString) => {
 export function updatedStateObject(stateObject, localQueryString) {
    let updatedObject = {};
 
-   localCharactersQueryParser(localQueryString).length &&
-      localCharactersQueryParser(localQueryString).forEach(
-         ([queryItem, queryValue]) => {
-            [queryItem] in stateObject &&
-               Object.assign(updatedObject, { [queryItem]: queryValue });
-         }
-      );
+   localQueryParser(localQueryString).length &&
+      localQueryParser(localQueryString).forEach(([queryItem, queryValue]) => {
+         [queryItem] in stateObject &&
+            Object.assign(updatedObject, { [queryItem]: queryValue });
+      });
 
    return updatedObject;
 }
+
+// export const initStateSlice = (fields, initObj) => {
+//    let ret = {};
+//    Object.keys(fields).forEach(
+//       (key) => (ret = { ...ret, [key]: { ...initObj } })
+//    );
+//    return ret;
+// };

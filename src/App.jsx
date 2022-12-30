@@ -13,10 +13,10 @@ import {
 import styles from './App.module.css';
 import * as characterActions from './redux-toolkit/actions/character-actions';
 import * as userActions from './redux-toolkit/actions/user-actions';
-import * as pageActions from './redux-toolkit/actions/page-actions';
-import * as pageActionsTest from './redux-toolkit/actions/page-actions-test';
 
 import * as path from './config/stringsPath';
+
+import { AppContextProvider } from './hoc/app-context/app-context';
 
 import Spinner from './components/00-simple-components/spinner/spinner';
 import Auth from './hoc/auth/auth';
@@ -36,8 +36,6 @@ function App() {
    const singleCharId = useSelector(
       (state) => state.characters.selectedCharacterData.id
    );
-
-   dispatch(pageActionsTest.nextTest('charactersTest')('payload'));
 
    const testElement = (
       <React.Fragment>

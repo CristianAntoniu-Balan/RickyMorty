@@ -66,7 +66,7 @@ export const getByQueryAndPageInterval = createAsyncThunk(
    }
 );
 
-export const sortCharacters = createAction('sortCharacters');
+// export const sortCharacters = createAction('sortCharacters');
 
 export const updateQueryItem = createAction(
    'updateQueryItem',

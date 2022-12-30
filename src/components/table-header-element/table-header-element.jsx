@@ -3,18 +3,23 @@ import styles from './table-header-element.module.css';
 import SortArrow from '../00-simple-components/sort-arrow/sort-arrow';
 import { useDispatch, useSelector } from 'react-redux';
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
+import { sort } from '../../redux-toolkit/slices/sort-slice';
+import { updateQueryItem } from '../../redux-toolkit/slices/query-slice';
 
 const TableHeaderElement = ({ item }) => {
    const dispatch = useDispatch();
-   const sortedState = useSelector((state) => state.characters.sorted);
-   const queryState = useSelector((state) => state.characters.query);
+   const context = useSelector((state) => state.context);
+   // const sortedState = useSelector((state) => state.characters.sorted);
+   const sortedState = useSelector((state) => state.sort[context]);
+   const queryState = useSelector((state) => state.query[context]);
 
    const handleClick = () => {
-      item.canSort && dispatch(characterActions.sortCharacters(item.id));
+      // item.canSort && dispatch(characterActions.sortCharacters(item.id));
+      item.canSort && dispatch(sort({ context, by: item.id }));
    };
 
    const handleQueryChange = (value) => {
-      dispatch(characterActions.updateQueryItem(item.id, value));
+      dispatch(updateQueryItem({ context, id: item.id, value }));
    };
 
    const queryField = !item?.filterOptions ? (

@@ -20,6 +20,6 @@ export const pageButton = {
    last: { symAfter: ' >>', txt: 'last' },
 };
 
-export const resetQuery = {
+export const resetQueryTxt = {
    txt: 'resetQuery',
 };

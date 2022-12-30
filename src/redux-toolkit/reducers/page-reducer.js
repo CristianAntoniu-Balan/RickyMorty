@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import * as pageActions from '../actions/page-actions';
 
-const initialState = {
+export const initialState = {
    itemsPerPage: 20,
    currentPage: 1,
    lastPage: 1,

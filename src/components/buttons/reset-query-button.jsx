@@ -1,17 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as characterActions from '../../redux-toolkit/actions/character-actions';
+import { resetQuery } from '../../redux-toolkit/slices/query-slice';
 
-import { resetQuery } from '../../config/stringsGeneric';
+import { resetQueryTxt } from '../../config/stringsGeneric';
 
 import styles from './buttons.module.css';
 
 const ResetQueryButton = () => {
    const dispatch = useDispatch();
+   const context = useSelector((state) => state.context);
 
    const handleClick = () => {
-      dispatch(characterActions.resetQuery());
+      dispatch(resetQuery({ context }));
    };
 
    return (
@@ -19,7 +21,7 @@ const ResetQueryButton = () => {
          className={styles.button}
          onClick={handleClick}
       >
-         {resetQuery.txt}
+         {resetQueryTxt.txt}
       </button>
    );
 };

@@ -8,9 +8,10 @@ import Spinner from '../00-simple-components/spinner/spinner';
 import { fetchPageItemsCount } from '../../config/stringsURL';
 
 const CharactersTable = () => {
+   const context = useSelector((state) => state.context);
    const characters = useSelector((state) => state.characters.queryCharacters);
-   const displayPage = useSelector((state) => state.page);
-   const sorted = useSelector((state) => state.characters.sorted);
+   const displayPage = useSelector((state) => state.page[context]);
+   const sorted = useSelector((state) => state.sort[context]);
 
    const minIndex = (() => {
       if (displayPage.currentPage === 1 || displayPage.lastPage === 1) {

@@ -3,46 +3,46 @@ import * as characterActions from '../actions/character-actions';
 import { charactersTable } from '../../config/stringsTable';
 import { initQueryInfo } from '../../config/stringsURL';
 
-function initQuery() {
-   const initQuery = {};
-   charactersTable.forEach((el) => {
-      el.canFilter && Object.assign(initQuery, { [el.id]: el.filterQuery });
-   });
-   return initQuery;
-}
+// function initQuery() {
+//    const initQuery = {};
+//    charactersTable.forEach((el) => {
+//       el.canFilter && Object.assign(initQuery, { [el.id]: el.filterQuery });
+//    });
+//    return initQuery;
+// }
 
-const initialState = {
+export const initialState = {
    queryCharacters: [],
    selectedCharacterData: {},
    loading: false,
    error: null,
-   sorted: {
-      by: 'id',
-      type: 1,
-   },
+   // sorted: {
+   //    by: 'id',
+   //    type: 1,
+   // },
    queryInfo: { ...initQueryInfo },
-   query: { ...initQuery() },
+   // query: { ...initQuery() },
 };
 
 const charactersReducer = createReducer(initialState, (builder) => {
    builder
-      .addCase(characterActions.resetQuery, (state = initialState, action) => {
-         state.query = { ...initQuery() };
-      })
-      .addCase(
-         characterActions.updateQueryItem,
-         (state = initialState, action) => {
-            state.query[action.payload.id] = action.payload.value;
-         }
-      )
-      .addCase(characterActions.updateQuery, (state = initialState, action) => {
-         // state.query = { ...action.payload };
-         for (const [key, value] of Object.entries(action.payload)) {
-            if ([key] in state.query) {
-               state.query[key] = value;
-            }
-         }
-      })
+      // .addCase(characterActions.resetQuery, (state = initialState, action) => {
+      //    state.query = { ...initQuery() };
+      // })
+      // .addCase(
+      //    characterActions.updateQueryItem,
+      //    (state = initialState, action) => {
+      //       state.query[action.payload.id] = action.payload.value;
+      //    }
+      // )
+      // .addCase(characterActions.updateQuery, (state = initialState, action) => {
+      //    // state.query = { ...action.payload };
+      //    for (const [key, value] of Object.entries(action.payload)) {
+      //       if ([key] in state.query) {
+      //          state.query[key] = value;
+      //       }
+      //    }
+      // })
       .addCase(
          characterActions.getAll.pending,
          (state = initialState, action) => {
@@ -138,17 +138,17 @@ const charactersReducer = createReducer(initialState, (builder) => {
             state.error = action.payload;
          }
       )
-      .addCase(
-         characterActions.sortCharacters,
-         (state = initialState, action) => {
-            if (state.sorted.by === action.payload) {
-               state.sorted.type = -1 * state.sorted.type;
-            } else {
-               state.sorted.by = action.payload;
-               state.sorted.type = 1;
-            }
-         }
-      )
+      // .addCase(
+      //    characterActions.sortCharacters,
+      //    (state = initialState, action) => {
+      //       if (state.sorted.by === action.payload) {
+      //          state.sorted.type = -1 * state.sorted.type;
+      //       } else {
+      //          state.sorted.by = action.payload;
+      //          state.sorted.type = 1;
+      //       }
+      //    }
+      // )
       .addDefaultCase((state = initialState, action) => state);
 });
 

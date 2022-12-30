@@ -2,7 +2,7 @@ export const baseURL = 'https://rickandmortyapi.com/api';
 
 export const apiOptions = {
    characters: 'characters',
-   locations: 'locaitons',
+   locations: 'locations',
    episodes: 'episodes',
 };
 
@@ -21,6 +21,7 @@ export const api = {
    [apiOptions.locations]: {
       path: '/location/',
       queryBy: {
+         id: 'id',
          name: 'name',
          type: 'type',
          dimension: 'dimension',
@@ -29,6 +30,7 @@ export const api = {
    [apiOptions.episodes]: {
       path: '/episode/',
       queryBy: {
+         id: 'id',
          name: 'name',
          episodeCode: 'episode',
       },
