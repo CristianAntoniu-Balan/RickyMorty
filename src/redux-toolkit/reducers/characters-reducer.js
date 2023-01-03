@@ -113,31 +113,31 @@ const charactersReducer = createReducer(initialState, (builder) => {
             state.error = action.payload;
          }
       )
-      .addCase(
-         characterActions.getByQueryAndPage.pending,
-         (state = initialState, action) => {
-            state.loading = true;
-            state.error = null;
-         }
-      )
-      .addCase(
-         characterActions.getByQueryAndPage.fulfilled,
-         (state = initialState, action) => {
-            state.queryInfo = { ...action.payload.queryInfo };
-            state.queryCharacters = [...action.payload.chars];
-            state.loading = false;
-            state.error = null;
-         }
-      )
-      .addCase(
-         characterActions.getByQueryAndPage.rejected,
-         (state = initialState, action) => {
-            state.queryCharacters = [];
-            state.queryInfo = { ...initQueryInfo };
-            state.loading = false;
-            state.error = action.payload;
-         }
-      )
+      // .addCase(
+      //    characterActions.getByQueryAndPage.pending,
+      //    (state = initialState, action) => {
+      //       state.loading = true;
+      //       state.error = null;
+      //    }
+      // )
+      // .addCase(
+      //    characterActions.getByQueryAndPage.fulfilled,
+      //    (state = initialState, action) => {
+      //       state.queryInfo = { ...action.payload.queryInfo };
+      //       state.queryCharacters = [...action.payload.chars];
+      //       state.loading = false;
+      //       state.error = null;
+      //    }
+      // )
+      // .addCase(
+      //    characterActions.getByQueryAndPage.rejected,
+      //    (state = initialState, action) => {
+      //       state.queryCharacters = [];
+      //       state.queryInfo = { ...initQueryInfo };
+      //       state.loading = false;
+      //       state.error = action.payload;
+      //    }
+      // )
       // .addCase(
       //    characterActions.sortCharacters,
       //    (state = initialState, action) => {

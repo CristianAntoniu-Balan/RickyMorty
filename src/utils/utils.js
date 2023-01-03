@@ -51,7 +51,7 @@ export const localQuery = (
 ) => {
    // TODO local sort query
    let localQuery = `?currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`;
-   localQuery += `&sortBy=${sort.by}&sortType=${sort.type}`;
+   localQuery += `&sortBy=${sort.sortBy}&sortType=${sort.sortType}`;
 
    queryString(queryOptions).length
       ? (localQuery += `&${queryString(queryOptions)}`)
@@ -67,7 +67,7 @@ const localQueryParser = (localQueryString) => {
          .slice(1)
          .split('&')
          .map((el) => el.split('='));
-
+      // console.log(queryOptionsArray);
       return queryOptionsArray;
    } else {
       return [];
@@ -79,6 +79,7 @@ export function updatedStateObject(stateObject, localQueryString) {
 
    localQueryParser(localQueryString).length &&
       localQueryParser(localQueryString).forEach(([queryItem, queryValue]) => {
+         // console.log(queryItem, queryValue, stateObject);
          [queryItem] in stateObject &&
             Object.assign(updatedObject, { [queryItem]: queryValue });
       });

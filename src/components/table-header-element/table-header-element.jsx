@@ -15,7 +15,7 @@ const TableHeaderElement = ({ item }) => {
 
    const handleClick = () => {
       // item.canSort && dispatch(characterActions.sortCharacters(item.id));
-      item.canSort && dispatch(sort({ context, by: item.id }));
+      item.canSort && dispatch(sort({ context, sortBy: item.id }));
    };
 
    const handleQueryChange = (value) => {
@@ -48,8 +48,8 @@ const TableHeaderElement = ({ item }) => {
    return (
       <div className={styles.tableHeaderElement}>
          <div>
-            {item.id === sortedState.by && (
-               <SortArrow sortType={sortedState.type} />
+            {item.id === sortedState.sortBy && (
+               <SortArrow sortType={sortedState.sortType} />
             )}
             <span onClick={handleClick}>{item.header}</span>
          </div>

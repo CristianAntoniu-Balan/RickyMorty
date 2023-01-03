@@ -35,10 +35,10 @@ const CharactersTable = () => {
                if (index >= minIndex && index <= maxIndex) return el;
             })
             .sort((a, b) => {
-               if (a[sorted.by] > b[sorted.by]) {
-                  return sorted.type;
+               if (a[sorted.sortBy] > b[sorted.sortBy]) {
+                  return sorted.sortType;
                }
-               return -1 * sorted.type;
+               return -1 * sorted.sortType;
             })
             .map((character) => (
                <CharacterRow
