@@ -26,7 +26,8 @@ const reducers = {
       [action.payload.context]: { ...reset(action.payload.context) },
    }),
    updateQueryItem: (state, action) => {
-      state[action.payload.context][action.payload.id] = action.payload.value;
+      state[action.payload.context][action.payload.id] =
+         action.payload.value.trim();
    },
    default: (state) => state,
 };

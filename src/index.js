@@ -12,7 +12,7 @@ import pageReducer from './redux-toolkit/slices/page-slice';
 import sortReducer from './redux-toolkit/slices/sort-slice';
 import queryReducer from './redux-toolkit/slices/query-slice';
 import contextReducer from './redux-toolkit/slices/context-slice';
-import { addContext } from './redux-toolkit/middleware/middleware';
+import { addContext, trimTimeout } from './redux-toolkit/middleware/middleware';
 
 import styles from './index.module.css';
 import App from './App';
@@ -29,7 +29,7 @@ const store = configureStore({
       context: contextReducer,
    },
    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(addContext),
+      getDefaultMiddleware().concat(addContext).concat(trimTimeout),
 });
 
 // TODO catch errors and display message

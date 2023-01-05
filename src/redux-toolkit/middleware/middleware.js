@@ -3,13 +3,9 @@ import { name as sortSliceName } from '../slices/sort-slice';
 import { name as querySliceName } from '../slices/query-slice';
 
 export const addContext = (store) => (next) => (action) => {
-   const sliceNamesRequiringContext = [
-      pageSliceName,
-      sortSliceName,
-      querySliceName,
-   ];
+   const sliceNamesWithContext = [pageSliceName, sortSliceName, querySliceName];
    if (
-      sliceNamesRequiringContext.some((sliceName) =>
+      sliceNamesWithContext.some((sliceName) =>
          action.type.startsWith(`${sliceName}/`)
       )
    ) {
@@ -26,4 +22,26 @@ export const addContext = (store) => (next) => (action) => {
       console.log('middleware', action);
    }
    next(action);
+};
+
+// TODO not ok
+export const trimTimeout = (store) => (next) => (action) => {
+   const sliceNamesWithTrimTimeout = [querySliceName];
+   console.log(
+      'herehere',
+      sliceNamesWithTrimTimeout.some((sliceName) =>
+         action.type.startsWith(`${sliceName}/`)
+      )
+   );
+   if (
+      sliceNamesWithTrimTimeout.some((sliceName) =>
+         action.type.startsWith(`${sliceName}/`)
+      )
+   ) {
+      console.log('here');
+      setTimeout(() => {
+         console.log('timed out');
+         return next(action);
+      }, 500);
+   } else next(action);
 };
