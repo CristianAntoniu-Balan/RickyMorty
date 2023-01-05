@@ -13,7 +13,7 @@ const ResetQueryButton = () => {
    const context = useSelector((state) => state.context);
 
    const handleClick = () => {
-      dispatch(resetQuery({ context }));
+      dispatch(resetQuery());
    };
 
    return (

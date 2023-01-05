@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { api, apiOptions } from '../../config/stringsURL';
 
-const name = 'query';
+export const name = 'query';
 
 let initialState = {};
 

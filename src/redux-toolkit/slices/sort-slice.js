@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { apiOptions } from '../../config/stringsURL';
 
-const name = 'sort';
+export const name = 'sort';
 
 let initialState = {};
 (() => {

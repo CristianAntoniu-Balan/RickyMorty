@@ -15,11 +15,11 @@ const TableHeaderElement = ({ item }) => {
 
    const handleClick = () => {
       // item.canSort && dispatch(characterActions.sortCharacters(item.id));
-      item.canSort && dispatch(sort({ context, sortBy: item.id }));
+      item.canSort && dispatch(sort({ sortBy: item.id }));
    };
 
    const handleQueryChange = (value) => {
-      dispatch(updateQueryItem({ context, id: item.id, value }));
+      dispatch(updateQueryItem({ id: item.id, value }));
    };
 
    const queryField = !item?.filterOptions ? (

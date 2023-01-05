@@ -56,11 +56,11 @@ const PageNav = () => {
       ));
 
    const handlePageChange = (toPageNumber) => {
-      dispatch(goToPageNumber({ context, value: toPageNumber }));
+      dispatch(goToPageNumber(toPageNumber));
    };
 
    const handleItemsChange = (items) => {
-      dispatch(displayPerPage({ context, value: items }));
+      dispatch(displayPerPage(items));
    };
 
    return (
@@ -94,7 +94,7 @@ const PageNav = () => {
          </div>
          <div>
             <span>
-               Found {queryInfo.count} character
+               Found {queryInfo.count} {context.slice(0, -1)}
                {(queryInfo.count === 0 || queryInfo.count > 1) && 's'} for
                current query
             </span>

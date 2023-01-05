@@ -14,7 +14,7 @@ const PageNavButton = ({ type }) => {
    const page = useSelector((state) => state.page[context]);
 
    const handleClick = (type) => {
-      dispatch(pageActions[type]({ context }));
+      dispatch(pageActions[type]());
    };
 
    const isDisabled =

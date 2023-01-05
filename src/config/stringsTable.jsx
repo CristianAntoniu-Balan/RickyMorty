@@ -5,7 +5,7 @@ export const charactersTable = [
       id: api[apiOptions.characters].queryBy.id,
       header: 'Id.',
       canSort: true,
-      canFilter: true,
+      canFilter: false,
       filterQuery: '',
    },
    {

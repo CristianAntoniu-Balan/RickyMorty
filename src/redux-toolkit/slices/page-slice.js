@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { apiOptions } from '../../config/stringsURL';
 import { pageButton } from '../../config/stringsGeneric';
 
-const name = 'page';
+export const name = 'page';
 
 let initialState = {};
 (() => {
