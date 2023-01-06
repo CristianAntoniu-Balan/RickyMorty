@@ -16,7 +16,7 @@ import { apiOptions } from '../../config/stringsURL';
 
 import { localQuery, updatedStateObject } from '../../utils/utils';
 
-import { fetchPageItemsCount } from '../../config/stringsURL';
+import { API_ITEMS_PER_PAGE } from '../../config/stringsURL';
 
 import Spinner from '../../components/00-simple-components/spinner/spinner';
 import CharacterRow from '../../components/characters-table/characters-row';
@@ -104,12 +104,12 @@ const AllCharactersPage = () => {
          const fetchPageRange = () => {
             const firstFetchPage = Math.ceil(
                ((displayPage.currentPage - 1) * displayPage.itemsPerPage + 1) /
-                  fetchPageItemsCount
+                  API_ITEMS_PER_PAGE
             );
 
             const lastFetchPage = Math.ceil(
                (displayPage.currentPage * displayPage.itemsPerPage) /
-                  fetchPageItemsCount
+                  API_ITEMS_PER_PAGE
             );
 
             return { firstFetchPage, lastFetchPage };

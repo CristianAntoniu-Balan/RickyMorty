@@ -49,7 +49,6 @@ export const localQuery = (
    sort,
    queryOptions
 ) => {
-   // TODO local sort query
    let localQuery = `?currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`;
    localQuery += `&sortBy=${sort.sortBy}&sortType=${sort.sortType}`;
 

@@ -25,23 +25,23 @@ export const addContext = (store) => (next) => (action) => {
 };
 
 // TODO not ok
-export const trimTimeout = (store) => (next) => (action) => {
-   const sliceNamesWithTrimTimeout = [querySliceName];
-   console.log(
-      'herehere',
-      sliceNamesWithTrimTimeout.some((sliceName) =>
-         action.type.startsWith(`${sliceName}/`)
-      )
-   );
-   if (
-      sliceNamesWithTrimTimeout.some((sliceName) =>
-         action.type.startsWith(`${sliceName}/`)
-      )
-   ) {
-      console.log('here');
-      setTimeout(() => {
-         console.log('timed out');
-         return next(action);
-      }, 500);
-   } else next(action);
-};
+// export const trimTimeout = (store) => (next) => (action) => {
+//    const sliceNamesWithTrimTimeout = [querySliceName];
+//    console.log(
+//       'herehere',
+//       sliceNamesWithTrimTimeout.some((sliceName) =>
+//          action.type.startsWith(`${sliceName}/`)
+//       )
+//    );
+//    if (
+//       sliceNamesWithTrimTimeout.some((sliceName) =>
+//          action.type.startsWith(`${sliceName}/`)
+//       )
+//    ) {
+//       console.log('here');
+//       setTimeout(() => {
+//          console.log('timed out');
+//          return next(action);
+//       }, 500);
+//    } else next(action);
+// };

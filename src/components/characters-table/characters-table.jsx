@@ -5,7 +5,7 @@ import CharactersHeader from './characters-header';
 import CharacterRow from './characters-row';
 import Spinner from '../00-simple-components/spinner/spinner';
 
-import { fetchPageItemsCount } from '../../config/stringsURL';
+import { API_ITEMS_PER_PAGE } from '../../config/stringsURL';
 
 const CharactersTable = () => {
    const context = useSelector((state) => state.context);
@@ -19,7 +19,7 @@ const CharactersTable = () => {
       } else {
          return (
             ((displayPage.currentPage - 1) * displayPage.itemsPerPage) %
-            fetchPageItemsCount
+            API_ITEMS_PER_PAGE
          );
       }
    })();

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { api, apiOptions } from '../../config/stringsURL';
+import { tableConfig } from '../../config/stringsTable';
 
 export const name = 'query';
 
@@ -8,9 +9,12 @@ let initialState = {};
 
 function reset(queryFor) {
    let empty = {};
-   Object.keys(api[queryFor].queryBy).forEach((queryKey) =>
-      Object.assign(empty, { [queryKey]: '' })
-   );
+   Object.keys(api[queryFor].queryBy).forEach((queryKey) => {
+      // console.log(tableConfig[queryFor].find((el) => el.id === queryKey));
+      Object.assign(empty, {
+         [queryKey]: '',
+      });
+   });
    return empty;
 }
 
@@ -26,8 +30,7 @@ const reducers = {
       [action.payload.context]: { ...reset(action.payload.context) },
    }),
    updateQueryItem: (state, action) => {
-      state[action.payload.context][action.payload.id] =
-         action.payload.value.trim();
+      state[action.payload.context][action.payload.id] = action.payload.value;
    },
    default: (state) => state,
 };
