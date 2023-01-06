@@ -5,12 +5,13 @@ import CharactersHeader from './characters-header';
 import CharacterRow from './characters-row';
 import Spinner from '../00-simple-components/spinner/spinner';
 
-import { fetchPageItemsCount } from '../../config/stringsURL';
+import { API_ITEMS_PER_PAGE } from '../../config/stringsURL';
 
 const CharactersTable = () => {
+   const context = useSelector((state) => state.context);
    const characters = useSelector((state) => state.characters.queryCharacters);
-   const displayPage = useSelector((state) => state.page);
-   const sorted = useSelector((state) => state.characters.sorted);
+   const displayPage = useSelector((state) => state.page[context]);
+   const sorted = useSelector((state) => state.sort[context]);
 
    const minIndex = (() => {
       if (displayPage.currentPage === 1 || displayPage.lastPage === 1) {
@@ -18,7 +19,7 @@ const CharactersTable = () => {
       } else {
          return (
             ((displayPage.currentPage - 1) * displayPage.itemsPerPage) %
-            fetchPageItemsCount
+            API_ITEMS_PER_PAGE
          );
       }
    })();
@@ -34,10 +35,10 @@ const CharactersTable = () => {
                if (index >= minIndex && index <= maxIndex) return el;
             })
             .sort((a, b) => {
-               if (a[sorted.by] > b[sorted.by]) {
-                  return sorted.type;
+               if (a[sorted.sortBy] > b[sorted.sortBy]) {
+                  return sorted.sortType;
                }
-               return -1 * sorted.type;
+               return -1 * sorted.sortType;
             })
             .map((character) => (
                <CharacterRow

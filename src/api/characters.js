@@ -2,7 +2,6 @@ import { baseURL, api, apiOptions } from '../config/stringsURL';
 import * as error from '../config/stringsError';
 
 import { apiQueryBuilder } from '../utils/utils';
-// TODO 300ms delay on query request
 
 // TODO make generic get functions: getWithParameters <- apiOptions
 
@@ -23,7 +22,7 @@ export async function getCharactersForQueryAndPageNo(queryOptions, page) {
       baseURL +
       api[apiOptions.characters].path +
       apiQueryBuilder(queryOptions, page);
-
+   console.log('query', query);
    await fetch(query)
       .then((res) => res.json())
       .then((data) => {

@@ -31,9 +31,6 @@ const AllCharactersPage = () => {
    // const charactersQuery = useParams();
 
    const [shouldUpdateFromURL = false, setShouldUpdateFromURL] = useState();
-   const [shouldNavigate = false, setShouldNavigate] = useState();
-   const [loaded = false, setLoaded] = useState();
-   const [shouldFetchCharacters = false, setShouldFetchCharacters] = useState();
    // console.log(charactersQuery);
 
    const context = useSelector((state) => state.context);
@@ -45,41 +42,13 @@ const AllCharactersPage = () => {
 
    const hasProperContext = context === apiOptions.characters;
 
-   // console.log(
-   //    'test',
-   //    ...Object.keys(queryOptions).map((key) => `queryOptions.${key}`)
-   // );
-
-   useEffect(() => {
-      console.log('setLoaded');
-      setLoaded(true);
-      // if (location.search === '') {
-      //    console.log('setNav');
-      //    setShouldNavigate(true);
-      // } else {
-      //    console.log('setURL');
-      //    setShouldUpdateFromURL(true);
-      // }
-   }, []);
-
    useEffect(() => {
       if (!hasProperContext) {
-         console.log('set context', location.search);
+         console.log('set yes', location.search);
+         setShouldUpdateFromURL(true);
          dispatch(setContext(apiOptions.characters));
-         if (location.search !== '') {
-            console.log('setURL');
-            setShouldUpdateFromURL(true);
-         }
-         // if (location.search === '') {
-         //    console.log('setNav');
-         //    setShouldNavigate(true);
-         // } else {
-         //    console.log('setURL');
-         //    setShouldUpdateFromURL(true);
-         // }
       } else if (shouldUpdateFromURL) {
-         console.log('update from URL', location.search);
-
+         console.log('triggered update', location.search);
          const queryStateToBeUpdated = updatedStateObject(
             queryOptions,
             location.search
@@ -100,22 +69,87 @@ const AllCharactersPage = () => {
             sortStateToBeUpdated
          );
 
-         if (Object.keys(sortStateToBeUpdated).length) {
-            dispatch(updateSort(sortStateToBeUpdated));
-         }
-         if (Object.keys(queryStateToBeUpdated).length) {
-            dispatch(characterActions.updateQuery(queryStateToBeUpdated));
-            // dispatch(pageActions.goToPageNumber(1));
-         }
-
          if (Object.keys(pageStateToBeUpdated).length) {
             dispatch(displayPerPage(pageStateToBeUpdated.itemsPerPage));
             dispatch(goToPageNumber(pageStateToBeUpdated.currentPage));
          }
 
+         if (Object.keys(queryStateToBeUpdated).length) {
+            dispatch(characterActions.updateQuery(queryStateToBeUpdated));
+            // dispatch(pageActions.goToPageNumber(1));
+         }
+
+         if (Object.keys(sortStateToBeUpdated).length) {
+            dispatch(updateSort(sortStateToBeUpdated));
+         }
+
          setShouldUpdateFromURL(false);
       }
    }, [hasProperContext, shouldUpdateFromURL]);
+
+   useEffect(() => {
+      if (hasProperContext && !shouldUpdateFromURL) {
+         console.log(
+            'here to page 1',
+            displayPage.currentPage,
+            location.search
+         );
+         dispatch(goToPageNumber(1));
+      }
+   }, [queryOptions]);
+
+   useEffect(() => {
+      if (hasProperContext && !shouldUpdateFromURL) {
+         console.log('fetch page range');
+         const fetchPageRange = () => {
+            const firstFetchPage = Math.ceil(
+               ((displayPage.currentPage - 1) * displayPage.itemsPerPage + 1) /
+                  API_ITEMS_PER_PAGE
+            );
+
+            const lastFetchPage = Math.ceil(
+               (displayPage.currentPage * displayPage.itemsPerPage) /
+                  API_ITEMS_PER_PAGE
+            );
+
+            return { firstFetchPage, lastFetchPage };
+         };
+
+         console.log('getByQueryAndPageInterval');
+         dispatch(
+            characterActions.getByQueryAndPageInterval({
+               queryOptions,
+               ...fetchPageRange(),
+            })
+         );
+
+         // navigate(
+         //    location.pathname + localQueryBuilder(queryOptions, displayPage)
+         // );
+      }
+   }, [
+      displayPage?.currentPage,
+      displayPage?.itemsPerPage,
+      queryOptions,
+      hasProperContext,
+      shouldUpdateFromURL,
+   ]);
+
+   useEffect(() => {
+      if (hasProperContext && !shouldUpdateFromURL) {
+         const lastDisplayPage =
+            queryInfo.count !== 0
+               ? Math.ceil(queryInfo.count / displayPage.itemsPerPage)
+               : 1;
+         console.log('last display page');
+         dispatch(setLastPageNumber(lastDisplayPage));
+      }
+   }, [
+      queryInfo.count,
+      displayPage?.itemsPerPage,
+      hasProperContext,
+      shouldUpdateFromURL,
+   ]);
 
    useEffect(() => {
       // context !== '' &&
@@ -140,68 +174,18 @@ const AllCharactersPage = () => {
    ]);
 
    // useEffect(() => {
-   //    if (hasProperContext && shouldNavigate) {
-   //       console.log('navigate');
-   //       // setShouldUpdateFromURL(false);
-   //       setShouldNavigate(false);
-   //       navigate(
-   //          location.pathname + localQuery(displayPage, sorted, queryOptions)
-   //       );
+   //    if (displayPage.currentPage > displayPage.lastPage) {
+   //       console.log('here to last page');
+   //       dispatch(pageActions.goToPageNumber(displayPage.lastPage));
    //    }
-   // }, [shouldNavigate]);
+   // }, [displayPage]);
 
    useEffect(() => {
-      if (hasProperContext && shouldFetchCharacters) {
-         const fetchPageRange = () => {
-            const firstFetchPage = Math.ceil(
-               ((displayPage.currentPage - 1) * displayPage.itemsPerPage + 1) /
-                  API_ITEMS_PER_PAGE
-            );
-
-            const lastFetchPage = Math.ceil(
-               (displayPage.currentPage * displayPage.itemsPerPage) /
-                  API_ITEMS_PER_PAGE
-            );
-
-            return { firstFetchPage, lastFetchPage };
-         };
-
-         console.log('fetch page range', fetchPageRange());
-         console.log('getByQueryAndPageInterval');
-
-         setShouldFetchCharacters(false);
-         setShouldNavigate(true);
-         dispatch(
-            characterActions.getByQueryAndPageInterval({
-               queryOptions,
-               ...fetchPageRange(),
-            })
-         );
+      if (hasProperContext) {
       }
-   }, [shouldFetchCharacters]);
-
-   useEffect(() => {
-      setShouldFetchCharacters(true);
-   }, [displayPage?.currentPage, displayPage?.itemsPerPage]);
-
-   useEffect(() => {
-      if (hasProperContext && !shouldUpdateFromURL) {
-         setShouldFetchCharacters(true);
-         if (loaded) {
-            console.log('here to page 1');
-            dispatch(goToPageNumber(1));
-         }
-      }
-   }, [queryOptions]);
-
-   useEffect(() => {
-      const lastDisplayPage =
-         hasProperContext && queryInfo.count !== 0
-            ? Math.ceil(queryInfo.count / displayPage.itemsPerPage)
-            : 1;
-      console.log('last display page', lastDisplayPage);
-      hasProperContext && dispatch(setLastPageNumber(lastDisplayPage));
-   }, [queryInfo.count, displayPage?.itemsPerPage]);
+      // TODO parse query string and dispatch ...
+      // console.log('updated');
+   }, [location.search, hasProperContext]);
 
    // TODO multi-word filter ?
 

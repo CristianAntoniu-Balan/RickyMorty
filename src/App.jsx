@@ -1,13 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { Suspense, useEffect } from 'react';
-import { Routes, Route, Link, useParams, useLocation } from 'react-router-dom';
+import {
+   Routes,
+   Route,
+   Link,
+   Navigate,
+   useNavigate,
+   useParams,
+   useLocation,
+} from 'react-router-dom';
 
 import styles from './App.module.css';
 import * as characterActions from './redux-toolkit/actions/character-actions';
 import * as userActions from './redux-toolkit/actions/user-actions';
-import * as pageActions from './redux-toolkit/actions/page-actions';
 
 import * as path from './config/stringsPath';
+
+import { AppContextProvider } from './hoc/app-context/app-context';
 
 import Spinner from './components/00-simple-components/spinner/spinner';
 import Auth from './hoc/auth/auth';
@@ -62,6 +71,10 @@ function App() {
                   <Route
                      path={path.to.home}
                      element={testElement}
+                  />
+                  <Route
+                     path="/"
+                     element={<Navigate to={path.to.home} />}
                   />
                   <Route path={path.to.characters}>
                      <Route

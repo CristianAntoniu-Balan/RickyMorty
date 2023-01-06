@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import * as pageActions from '../../redux-toolkit/actions/page-actions';
+// import * as pageActions from '../../redux-toolkit/actions/page-actions';
+import * as pageActions from '../../redux-toolkit/slices/page-slice';
 
 import { pageButton } from '../../config/stringsGeneric';
 
@@ -9,10 +10,11 @@ import styles from './buttons.module.css';
 
 const PageNavButton = ({ type }) => {
    const dispatch = useDispatch();
-   const page = useSelector((state) => state.page);
+   const context = useSelector((state) => state.context);
+   const page = useSelector((state) => state.page[context]);
 
    const handleClick = (type) => {
-      dispatch(pageActions[pageButton[type].txt]());
+      dispatch(pageActions[type]());
    };
 
    const isDisabled =

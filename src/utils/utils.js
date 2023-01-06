@@ -1,7 +1,7 @@
 import { baseURL, api } from '../config/stringsURL';
 
 export const classes = (...classCollection) => {
-   // TODO check logic
+   // TODO not working / check
    let allClasses = [];
    for (const cls of classCollection) {
       allClasses.push(cls);
@@ -44,12 +44,13 @@ export const apiQueryBuilder = (queryOptions, page) => {
    return apiQuery;
 };
 
-export const localQueryBuilder = (
-   queryOptions,
-   { currentPage, itemsPerPage }
+export const localQuery = (
+   { currentPage, itemsPerPage },
+   sort,
+   queryOptions
 ) => {
-   // TODO local sort query
    let localQuery = `?currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`;
+   localQuery += `&sortBy=${sort.sortBy}&sortType=${sort.sortType}`;
 
    queryString(queryOptions).length
       ? (localQuery += `&${queryString(queryOptions)}`)
@@ -60,14 +61,12 @@ export const localQueryBuilder = (
 
 const localQueryParser = (localQueryString) => {
    // TODO make check logic
-   // console.log(localQueryString);
    if (localQueryString.length) {
       let queryOptionsArray = localQueryString
          .slice(1)
          .split('&')
          .map((el) => el.split('='));
-      // console.log('testParser -> ', queryOptionsArray);
-
+      // console.log(queryOptionsArray);
       return queryOptionsArray;
    } else {
       return [];
@@ -79,15 +78,18 @@ export function updatedStateObject(stateObject, localQueryString) {
 
    localQueryParser(localQueryString).length &&
       localQueryParser(localQueryString).forEach(([queryItem, queryValue]) => {
-         // console.log(
-         //    'check -> ',
-         //    [queryItem] in stateObject,
-         //    queryItem,
-         //    queryValue
-         // );
+         // console.log(queryItem, queryValue, stateObject);
          [queryItem] in stateObject &&
             Object.assign(updatedObject, { [queryItem]: queryValue });
       });
 
    return updatedObject;
 }
+
+// export const initStateSlice = (fields, initObj) => {
+//    let ret = {};
+//    Object.keys(fields).forEach(
+//       (key) => (ret = { ...ret, [key]: { ...initObj } })
+//    );
+//    return ret;
+// };

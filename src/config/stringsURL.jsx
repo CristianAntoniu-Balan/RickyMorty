@@ -2,12 +2,12 @@ export const baseURL = 'https://rickandmortyapi.com/api';
 
 export const apiOptions = {
    characters: 'characters',
-   locations: 'locaitons',
+   locations: 'locations',
    episodes: 'episodes',
 };
 
 export const api = {
-   characters: {
+   [apiOptions.characters]: {
       path: '/character/',
       queryBy: {
          id: 'id',
@@ -17,20 +17,60 @@ export const api = {
          type: 'type',
          gender: 'gender',
       },
+      response: {
+         id: '',
+         name: '',
+         status: '',
+         species: '',
+         type: '',
+         gender: '',
+         origin: {
+            name: '',
+            url: '',
+         },
+         location: {
+            name: '',
+            url: '',
+         },
+         image: '',
+         episode: [],
+         url: '',
+         created: '',
+      },
    },
-   locations: {
+   [apiOptions.locations]: {
       path: '/location/',
       queryBy: {
+         id: 'id',
          name: 'name',
          type: 'type',
          dimension: 'dimension',
       },
+      response: {
+         id: '',
+         name: '',
+         type: '',
+         dimension: '',
+         residents: [],
+         url: '',
+         created: '',
+      },
    },
-   episodes: {
+   [apiOptions.episodes]: {
       path: '/episode/',
       queryBy: {
+         id: 'id',
          name: 'name',
          episodeCode: 'episode',
+      },
+      response: {
+         id: '',
+         name: '',
+         air_date: '',
+         episode: '',
+         characters: [],
+         url: '',
+         created: '',
       },
    },
 };
@@ -43,4 +83,6 @@ export const initQueryInfo = {
 };
 
 export const queryPage = 'page=';
-export const fetchPageItemsCount = 20;
+
+// API_ITEMS_PER_PAGE (!) see API docs -> https://rickandmortyapi.com/documentation/#introduction
+export const API_ITEMS_PER_PAGE = 20;
